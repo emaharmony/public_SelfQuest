@@ -1,17 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class Quest
+namespace SelfQuest
 {
+    public class Quest
+    {
+        public string name { get; private set; }
+        public List<string> checklist { get; set; }
 
-    string name;
-    string[] checklist;
-    string description;
+        public bool isBonus = false;
+        public List<Skill> affected { get; set; }
+        public Reward reward { get; set; }
+        public QuestLine questLine { get; private set; }
 
-    bool isBonus = false;
-    Skill[] affected;
-    Reward reward;
-    QuestLine questLine;
+        public Quest(string n, bool b, QuestLine qline)
+        {
+            name = n;
+            isBonus = b;
+            questLine = qline;
+        }
 
+        public void SetQLine(QuestLine ql)
+        {
+            questLine = ql;
+        }
+    }
 }

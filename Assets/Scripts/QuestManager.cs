@@ -1,36 +1,54 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class QuestManager : MonoBehaviour
+namespace SelfQuest
 {
-    int currentQuestLine = 0;
-
-    List<QuestLine> pool;
-
-
-    public void AddQuest(QuestLine newQ) 
+    public class QuestManager : MonoBehaviour
     {
-        pool.Add(newQ);
+        public static QuestManager INSTANCE { get; private set; }
+        int currentQuestLine = 0;
 
-    }
+        List<QuestLine> pool;
 
-    public void RemoveQuest(QuestLine q) 
-    {
-        pool.Remove(q);
-    }
+        private void Awake()
+        {
+            INSTANCE = this;
+            pool = new List<QuestLine>();
 
-    public void RemoveQuest(int q)
-    {
-        pool.Remove(pool[q]);
-    }
+        }
 
-    public void ChangeQuest(int dir) 
-    {
-        currentQuestLine += (dir > 0 ? 1 : -1);
-        //populate Quest UI
+        public void AddQuest(QuestLine newQ)
+        {
+            pool.Add(newQ);
 
+        }
+
+        public void RemoveQuest(QuestLine q)
+        {
+            pool.Remove(q);
+        }
+
+        public void RemoveQuest(int q)
+        {
+            pool.Remove(pool[q]);
+        }
+
+        public void ChangeQuestLine(int dir)
+        {
+            ScrollManager.INSTANCE.CloseScroll(2f);
+            currentQuestLine += (dir > 0 ? 1 : -1);
+            currentQuestLine %= pool.Count;
+
+            //populate Quest UI
+            ScrollManager.INSTANCE.PopulateQuests();
+            ScrollManager.INSTANCE.OpenScroll();
+
+        }
+
+        public QuestLine selectedQuestLine
+        {
+            get { if (pool.Count > 0) return pool[currentQuestLine]; else return null; }
+        }
     }
 
 }
-
