@@ -51,7 +51,6 @@ namespace SelfQuest
             test.AddQuest(new Quest("fuck you", true, null));
             QuestManager.INSTANCE.AddQuest(test);
             PopulateQuests();
-            OpenScroll();
         }
 
         public void PopulateQuests()
@@ -59,7 +58,7 @@ namespace SelfQuest
             if (QuestManager.INSTANCE == null) return;
             if (QuestManager.INSTANCE.selectedQuestLine == null) return;
 
-            CloseQuestInfo();
+            //CloseQuestInfo();
             QuestLine l = QuestManager.INSTANCE.selectedQuestLine;
             questLineName.text = l.Name;
             giver.text = l.Giver;
@@ -71,12 +70,22 @@ namespace SelfQuest
                 go.GetComponent<QuestListItem>().Questy = q;
             }
 
-           
+            OpenQuestList();
+
+
+        }
+
+        public void OpenQuestList()
+        {
+            questLog.alpha = 1;
+            questLog.interactable = questLog.blocksRaycasts = true;
+            questInfoPanel.alpha = 0;
+            questInfoPanel.blocksRaycasts = questInfoPanel.interactable = false;
+            OpenScroll(2f);
         }
 
         public void OpenQuestInfo(Quest q)
         {
-            Invoke("OpenScroll", 0.5f);
             CloseScroll(2f);
             questLog.alpha = 0;
             questLog.interactable = questLog.blocksRaycasts = false;
@@ -84,17 +93,17 @@ namespace SelfQuest
             title.text = q.name;
             questInfoPanel.alpha = 1;
             questInfoPanel.blocksRaycasts = questInfoPanel.interactable = true;
-            
+            OpenScroll(2f);
         }
 
         public void CloseQuestInfo()
         {
-            Invoke("OpenScroll", 0.5f);
             CloseScroll(2f);
             questLog.alpha = 1;
             questLog.interactable = questLog.blocksRaycasts = true;
             questInfoPanel.alpha = 0;
             questInfoPanel.blocksRaycasts = questInfoPanel.interactable = false;
+            OpenScroll(2f);
         }
 
         public void OpenScroll()
