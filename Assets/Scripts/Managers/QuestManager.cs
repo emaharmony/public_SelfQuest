@@ -45,6 +45,11 @@ namespace SelfQuest
 
         }
 
+        public QuestLine GetQuestLine(int i)
+        {
+            return pool[i];
+        }
+
         public QuestLine selectedQuestLine
         {
             get { if (pool.Count > 0) return pool[currentQuestLine]; else return null; }

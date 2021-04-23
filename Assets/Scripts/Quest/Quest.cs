@@ -17,7 +17,8 @@ namespace SelfQuest
         {
             name = n;
             isBonus = b;
-            questLine = qline;
+            SetQLine(qline);
+            affected = qline.Skills;
         }
 
         public void SetQLine(QuestLine ql)

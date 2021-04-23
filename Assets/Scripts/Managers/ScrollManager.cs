@@ -12,7 +12,8 @@ namespace SelfQuest
         bool isOpen = false;
 
         [Header("Animation/Info")]
-        [SerializeField] Animator animate;
+        [SerializeField] Animator mainAnimate;
+        [SerializeField] Animator subAnimate;
         [SerializeField] float speed = 1;
 
 
@@ -46,9 +47,9 @@ namespace SelfQuest
         {
             QuestLine test = new QuestLine("Test", QuestLine.QuestType.MAIN, "Myself");
             List<Skill> skillz = new List<Skill>();
-            skillz.Add(new Skill());
+            skillz.Add(new Skill(name, null));
             test.Skills = skillz;
-            test.AddQuest(new Quest("fuck you", true, null));
+            test.AddQuest(new Quest("fuck you", true, test));
             QuestManager.INSTANCE.AddQuest(test);
             PopulateQuests();
         }
@@ -108,26 +109,26 @@ namespace SelfQuest
 
         public void OpenScroll()
         {
-            animate.speed = 1;
-            animate.SetTrigger("open");
+            mainAnimate.speed = 1;
+            mainAnimate.SetTrigger("open");
         }
 
         public void CloseScroll()
         {
-            animate.speed = 1;
-            animate.SetTrigger("close");
+            mainAnimate.speed = 1;
+            mainAnimate.SetTrigger("close");
         }
 
         public void OpenScroll(float s)
         {
-            animate.speed = s;
-            animate.SetTrigger("open");
+            mainAnimate.speed = s;
+            mainAnimate.SetTrigger("open");
         }
 
         public void CloseScroll(float s)
         {
-            animate.speed = s;
-            animate.SetTrigger("close");
+            mainAnimate.speed = s;
+            mainAnimate.SetTrigger("close");
 
         }
     }
