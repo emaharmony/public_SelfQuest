@@ -26,7 +26,7 @@ namespace SelfQuest {
         {
             if (qname.text == "")
             {
-                //Please out a name for the Quest~ 
+                //Please put a name for the Quest~ 
                 return;
                
             }
