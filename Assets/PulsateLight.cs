@@ -1,4 +1,8 @@
-﻿using System.Collections;
+﻿/**
+ * Will have to add a time value to the ping pong but works well
+ * 
+ */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
