@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76938e42bbb540d46802e7dd42b3e598, type: 3}
-  m_Name: NewBasicFeature
+  m_Name: Pixel
   m_EditorClassIdentifier: 
   m_Active: 1
   settings:
@@ -56,4 +56,4 @@ MonoBehaviour:
       m_Bits: 288
     Event: 450
     blitMat: {fileID: 2100000, guid: ef563c8e0bf6403458e1c495c1663abf, type: 2}
-    pixelDensity: 2.5
+    pixelDensity: 12
