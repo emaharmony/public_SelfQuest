@@ -116,10 +116,10 @@ Material:
     - _Height: 59
     - _Metallic: 0
     - _OcclusionStrength: 1
-    - _PixelDensity: 12
+    - _PixelDensity: 3
     - _Poseterize: 0
-    - _PosterizationCount: 6
-    - _Power: 1000
+    - _PosterizationCount: 10
+    - _Power: 500
     - _QueueOffset: 0
     - _Raw: 0
     - _ReceiveShadows: 1
