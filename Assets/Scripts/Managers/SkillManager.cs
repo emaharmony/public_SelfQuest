@@ -9,7 +9,7 @@ namespace SelfQuest
 
         public static SkillManager INSTANCE;
 
-        List<Skill> pool; //save these in the persistent data
+        [SerializeField] List<Skill> pool; //save these in the persistent data
 
         private void Awake()
         {

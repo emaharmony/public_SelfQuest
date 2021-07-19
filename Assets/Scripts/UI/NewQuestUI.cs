@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace SelfQuest {
     public class NewQuestUI : MonoBehaviour
     {
         [SerializeField] Toggle isBonus;
-        [SerializeField] Dropdown qLine;
-        [SerializeField] Dropdown skill;
-        [SerializeField] InputField qname;
+        [SerializeField] TMP_Dropdown qLine;
+        [SerializeField] TMP_Dropdown skill;
+        [SerializeField] TMP_InputField qname;
         [SerializeField] Transform checkList;
         [SerializeField] GameObject checkListPrefab;
 
         Quest making;
-        List<Skill> skills = new List<Skill>();
+        Skill secondSkill = null;
         
         public void MakeNewQuest(QuestLine ql)
         {
@@ -33,12 +34,12 @@ namespace SelfQuest {
 
             QuestLine questLine = QuestManager.INSTANCE.GetQuestLine(i);
             making = new Quest(qname.text, isBonus, questLine);
-            making.affected = skills;
+            making.secondarySkill = secondSkill;
         }
 
         public void AddSkill(int i)
         {
-            skills.Add(SkillManager.INSTANCE.GetSkill(i));
+            secondSkill = (SkillManager.INSTANCE.GetSkill(i));
         }
     }
 }

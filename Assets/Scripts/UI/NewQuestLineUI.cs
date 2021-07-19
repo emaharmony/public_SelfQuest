@@ -6,15 +6,16 @@ using TMPro;
 
 public class NewQuestLineUI : MonoBehaviour
 {
-    public string qname, giver;
-    int qtype;
+    public TMP_InputField qname, giver;
+    [SerializeField] TMP_Dropdown qtype;
     List<int> skillz;
     [SerializeField] Transform subQuestParent;
     [SerializeField] GameObject subQuestListPrefab;
 
     public void AddSkill(int i)
     {
-        
+        if(!skillz.Contains(i))
+        skillz.Add(i);
     }
     
 }

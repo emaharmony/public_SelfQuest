@@ -37,6 +37,12 @@ namespace SelfQuest
         [SerializeField] TextMeshProUGUI r_xp;
         [SerializeField] Image rewardIcon;
 
+        [Space(2)]
+        [Header("New Quest UI")]
+        [SerializeField] GameObject newLineUI;
+        [SerializeField] GameObject newSubUI;
+        
+
         private void Awake()
         {
             INSTANCE = this;
@@ -48,7 +54,7 @@ namespace SelfQuest
             QuestLine test = new QuestLine("Test", QuestLine.QuestType.MAIN, "Myself");
             List<Skill> skillz = new List<Skill>();
             skillz.Add(new Skill(name, null));
-            test.Skills = skillz;
+            test.Skill = skillz[0];
             test.AddQuest(new Quest("fuck you", true, test));
             QuestManager.INSTANCE.AddQuest(test);
             PopulateQuests();
@@ -67,7 +73,7 @@ namespace SelfQuest
             foreach( Quest q in QuestManager.INSTANCE.selectedQuestLine.ListOfQuests)
             {
                 GameObject go = Instantiate(questListItemPrefab.gameObject);
-                go.transform.parent = questListParent;
+                go.transform.SetParent(questListParent);
                 go.GetComponent<QuestListItem>().Questy = q;
             }
 
@@ -83,6 +89,7 @@ namespace SelfQuest
             questInfoPanel.alpha = 0;
             questInfoPanel.blocksRaycasts = questInfoPanel.interactable = false;
             OpenScroll(2f);
+            CloseSubScroll(2f);
         }
 
         public void OpenQuestInfo(Quest q)
@@ -129,6 +136,46 @@ namespace SelfQuest
         {
             mainAnimate.speed = s;
             mainAnimate.SetTrigger("close");
+
+        }
+
+        public void OpenSubScroll()
+        {
+            subAnimate.SetTrigger("open");
+        }
+
+        public void CloseSubScroll()
+        {
+            subAnimate.SetTrigger("close");
+        }
+
+        public void OpenSubScroll(float s)
+        {
+            subAnimate.speed = s;
+            subAnimate.SetTrigger("open");
+        }
+
+        public void CloseSubScroll(float s)
+        {
+            subAnimate.speed = s;
+            subAnimate.SetTrigger("close");
+        }
+        public void OpenNewQuestLineUIMenu()
+        {
+            CloseScroll();
+            Invoke("OpenSubScroll", 0.5f);
+            newLineUI.SetActive(true);
+            newSubUI.SetActive(false);
+
+        }
+
+        public void OpenNewSkillMenu()
+        {
+
+        }
+
+        public void CloseNewSkillMenu()
+        {
 
         }
     }
