@@ -14,6 +14,15 @@ namespace SelfQuest
             SECONDARY
         }
 
+        public QuestLine() 
+        {
+            Name = "";
+            Giver = "";
+            Qtype = QuestType.MAIN;
+            Reward = null;
+            ListOfQuests = new List<Quest>();
+        }
+
         public QuestLine(string n, QuestType t, string g)
         {
             Name = n;

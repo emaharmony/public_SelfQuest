@@ -15,7 +15,8 @@ namespace SelfQuest {
         [SerializeField] GameObject checkListPrefab;
 
         Quest making;
-        
+        List<TMP_InputField> checkListItems;
+
         public int ChosenSkill { get; set; }
         public int ChosenQline { get; set; }
 
@@ -23,6 +24,12 @@ namespace SelfQuest {
         {
             making = new Quest(qname.text, isBonus, ql);
 
+        }
+
+        public void AddNewCheckListItem() 
+        {
+            GameObject go = Instantiate(checkListPrefab, checkList);
+            checkListItems.Add(go.GetComponentInChildren<TMP_InputField>());
         }
 
         public void MakeNewQuest(int i)
