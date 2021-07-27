@@ -54,6 +54,18 @@ namespace SelfQuest
         {
             get { if (pool.Count > 0) return pool[currentQuestLine]; else return null; }
         }
+
+        public void NextQuestLine()
+        {
+            currentQuestLine = (currentQuestLine + 1) % pool.Count;
+            ScrollManager.INSTANCE.PopulateQuests();
+        }
+
+        public void PrevQuestLine()
+        {
+            currentQuestLine = Mathf.Abs( (currentQuestLine - 1) % pool.Count);
+            ScrollManager.INSTANCE.PopulateQuests();
+        }
     }
 
 }

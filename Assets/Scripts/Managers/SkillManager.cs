@@ -18,6 +18,7 @@ namespace SelfQuest
         private void Start()
         {
             //Get pool of added Skills;
+            AddSkill(new Skill("fuck me", null));
 
         }
 

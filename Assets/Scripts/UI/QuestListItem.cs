@@ -8,6 +8,7 @@ namespace SelfQuest
 {
     public class QuestListItem : MonoBehaviour
     {
+
         Quest linkedQuest;
         public Quest Questy{ get { return linkedQuest; }
             set { linkedQuest = value;  Name.text = value.name;  } }
@@ -20,9 +21,14 @@ namespace SelfQuest
             button = GetComponent<Button>();
         }
 
+        public void SetQuest(int i)
+        {
+        }
+
         public void PrepQuestInfoScreen()
         {
             ScrollManager.INSTANCE.OpenQuestInfo(linkedQuest);
         }
+
     }
 }

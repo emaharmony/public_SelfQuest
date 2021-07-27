@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CloudController : MonoBehaviour
 {
+    //Adjust Dur, LifeTime, and Size 
     // Start is called before the first frame update
     void Start()
     {

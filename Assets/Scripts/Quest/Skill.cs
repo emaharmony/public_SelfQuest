@@ -8,10 +8,10 @@ namespace SelfQuest
     [Serializable]
     public class Skill
     {
-        string skillName;
-        Sprite icon;
-        float exp, expTillNextLvl;
-        int lvl;
+        [SerializeField]string skillName;
+        [SerializeField] Sprite icon;
+        [SerializeField] float exp, expTillNextLvl;
+        [SerializeField] int lvl;
 
         public Skill(string name, Sprite i)
         {

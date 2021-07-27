@@ -11,6 +11,8 @@ namespace SelfQuest
         public static ScrollManager INSTANCE { get; private set; }
         bool isOpen = false;
 
+        List<GameObject> questListItems = new List<GameObject>();
+
         [Header("Animation/Info")]
         [SerializeField] Animator mainAnimate;
         [SerializeField] Animator subAnimate;
@@ -70,16 +72,25 @@ namespace SelfQuest
             questLineName.text = l.Name;
             giver.text = l.Giver;
 
+            if (questListItems.Count > 0)
+            {
+                for (int i = 0; i < questListItems.Count; i++)
+                    Destroy(questListItems[i]);
+
+                questListItems = new List<GameObject>();
+            }
+
             foreach( Quest q in QuestManager.INSTANCE.selectedQuestLine.ListOfQuests)
             {
                 GameObject go = Instantiate(questListItemPrefab.gameObject);
                 go.transform.SetParent(questListParent);
+                go.transform.localScale = Vector3.one;
+                go.transform.localEulerAngles = Vector3.zero;
                 go.GetComponent<QuestListItem>().Questy = q;
+                questListItems.Add(go);
             }
 
             OpenQuestList();
-
-
         }
 
         public void OpenQuestList()
@@ -88,77 +99,78 @@ namespace SelfQuest
             questLog.interactable = questLog.blocksRaycasts = true;
             questInfoPanel.alpha = 0;
             questInfoPanel.blocksRaycasts = questInfoPanel.interactable = false;
-            OpenScroll(2f);
             CloseSubScroll(2f);
+            Invoke("OpenScroll",0.5f);
+
         }
 
         public void OpenQuestInfo(Quest q)
         {
-            CloseScroll(2f);
             questLog.alpha = 0;
             questLog.interactable = questLog.blocksRaycasts = false;
             questType.text = (q.isBonus ? "Normal" : "Bonus");
             title.text = q.name;
             questInfoPanel.alpha = 1;
             questInfoPanel.blocksRaycasts = questInfoPanel.interactable = true;
-            OpenScroll(2f);
+            
         }
 
         public void CloseQuestInfo()
         {
-            CloseScroll(2f);
             questLog.alpha = 1;
             questLog.interactable = questLog.blocksRaycasts = true;
             questInfoPanel.alpha = 0;
             questInfoPanel.blocksRaycasts = questInfoPanel.interactable = false;
-            OpenScroll(2f);
         }
 
         public void OpenScroll()
         {
             mainAnimate.speed = 1;
-            mainAnimate.SetTrigger("open");
+            mainAnimate.SetBool("isOpen", true);
         }
 
         public void CloseScroll()
         {
             mainAnimate.speed = 1;
-            mainAnimate.SetTrigger("close");
+            mainAnimate.SetBool("isOpen", false);
         }
 
         public void OpenScroll(float s)
         {
             mainAnimate.speed = s;
-            mainAnimate.SetTrigger("open");
+            mainAnimate.SetBool("isOpen", true);
         }
 
         public void CloseScroll(float s)
         {
             mainAnimate.speed = s;
-            mainAnimate.SetTrigger("close");
+            mainAnimate.SetBool("isOpen", false);
 
         }
 
         public void OpenSubScroll()
         {
-            subAnimate.SetTrigger("open");
+
+            subAnimate.speed = 1;
+            subAnimate.SetBool("isOpen", true);
         }
 
         public void CloseSubScroll()
         {
-            subAnimate.SetTrigger("close");
+            subAnimate.speed = 1;
+            subAnimate.SetBool("isOpen", false);
         }
 
         public void OpenSubScroll(float s)
         {
             subAnimate.speed = s;
-            subAnimate.SetTrigger("open");
+            subAnimate.SetBool("isOpen", true);
         }
 
         public void CloseSubScroll(float s)
         {
             subAnimate.speed = s;
-            subAnimate.SetTrigger("close");
+            subAnimate.SetBool("isOpen", false);
         }
         public void OpenNewQuestLineUIMenu()
         {
@@ -178,5 +190,6 @@ namespace SelfQuest
         {
 
         }
+        
     }
 }

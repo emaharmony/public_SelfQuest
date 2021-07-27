@@ -15,8 +15,10 @@ namespace SelfQuest {
         [SerializeField] GameObject checkListPrefab;
 
         Quest making;
-        Skill secondSkill = null;
         
+        public int ChosenSkill { get; set; }
+        public int ChosenQline { get; set; }
+
         public void MakeNewQuest(QuestLine ql)
         {
             making = new Quest(qname.text, isBonus, ql);
@@ -34,12 +36,16 @@ namespace SelfQuest {
 
             QuestLine questLine = QuestManager.INSTANCE.GetQuestLine(i);
             making = new Quest(qname.text, isBonus, questLine);
-            making.secondarySkill = secondSkill;
+            making.secondarySkill = SkillManager.INSTANCE.GetSkill(ChosenSkill);
         }
 
-        public void AddSkill(int i)
+
+
+        public void CreateQuest()
         {
-            secondSkill = (SkillManager.INSTANCE.GetSkill(i));
+            making = new Quest(qname.text, isBonus, QuestManager.INSTANCE.GetQuestLine(ChosenQline));
+            making.reward = new Reward();
         }
+
     }
 }
