@@ -190,6 +190,17 @@ namespace SelfQuest
         {
 
         }
-        
+
+        public void TurnOnNewQuestLine()
+        {
+            newLineUI.SetActive(true);
+            newSubUI.SetActive(false);
+        }
+
+        public void TurnOnNewQuest()
+        {
+            newLineUI.SetActive(false);
+            newSubUI.SetActive(true);
+        }
     }
 }

@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Reward : MonoBehaviour
+namespace SelfQuest
 {
-    // Start is called before the first frame update
-    void Start()
+    public class Reward
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        protected int exp, gold;
+        public Reward(int e, int g)
+        {
+            exp = e;
+            gold = g;
+        }
     }
 }

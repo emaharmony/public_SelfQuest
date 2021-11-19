@@ -6,6 +6,9 @@ namespace SelfQuest
 {
     public class QuestLine
     {
+        /// <summary>
+        /// Class that defines a questLine objects
+        /// </summary>
         [Serializable]
         public enum QuestType
         {
@@ -28,7 +31,6 @@ namespace SelfQuest
             Name = n;
             Giver = g;
             Qtype = t;
-            Reward = new BigReward();
             ListOfQuests = new List<Quest>();
         }
 
@@ -38,16 +40,16 @@ namespace SelfQuest
             ListOfQuests.Add(newQ);
         }
 
-        public string Name { get; }
+        public string Name { get; set; }
 
-        public string Giver { get; }
+        public string Giver { get; set; }
 
-        public QuestType Qtype { get; }
+        public QuestType Qtype { get; set; }
 
         public List<Quest> ListOfQuests { get; set; }
 
         public Skill Skill { get; set; }
 
-        public BigReward Reward { get; set; }
+        public Reward Reward { get; set; }
     }
 }

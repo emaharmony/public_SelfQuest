@@ -10,7 +10,7 @@ namespace SelfQuest
     {
         [SerializeField]string skillName;
         [SerializeField] Sprite icon;
-        [SerializeField] float exp, expTillNextLvl;
+        [SerializeField] int exp, expTillNextLvl;
         [SerializeField] int lvl;
 
         public Skill(string name, Sprite i)
@@ -19,7 +19,20 @@ namespace SelfQuest
             icon = i;
             exp = 0;
             lvl = 1;
-            expTillNextLvl = 10;
+            expTillNextLvl = 5;
+        }
+
+        public void AddEXP(int e) 
+        {
+            exp += e;
+            if (exp >= expTillNextLvl)
+                LevelSkill();
+        }
+
+        void LevelSkill() 
+        {
+            expTillNextLvl *= 2; //find better formula
+            lvl++;
         }
     }
 }

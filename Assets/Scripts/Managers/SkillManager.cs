@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace SelfQuest
 {
+    /// <summary>
+    ///Skill pool is managed and accessed here. 
+    /// 
+    /// </summary>
     public class SkillManager : MonoBehaviour
     {
 
@@ -31,5 +35,16 @@ namespace SelfQuest
         {
             return pool[i];
         }
+
+        public void LevelSkill(int index, int exp) 
+        {
+            pool[index].AddEXP(exp);
+        }
+
+        public void UpdateUI() 
+        {
+
+        }
+
     }
 }

@@ -2,17 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BigReward : MonoBehaviour
+namespace SelfQuest
 {
-    // Start is called before the first frame update
-    void Start()
+    public class BigReward
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

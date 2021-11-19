@@ -2,18 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CloudController : MonoBehaviour
+namespace SelfQuest.Environment
 {
-    //Adjust Dur, LifeTime, and Size 
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// Controls DAYNIGHT and the position of the of the clouds. 
+    /// </summary>
+    public class CloudController : MonoBehaviour
     {
-        
-    }
+        //Adjust Dur, LifeTime, and Size 
+        // Start is called before the first frame update
+        void Start()
+        {
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
     }
 }

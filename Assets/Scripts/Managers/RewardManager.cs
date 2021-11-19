@@ -2,17 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RewardManager : MonoBehaviour
+namespace SelfQuest
 {
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// Controls rewards that are given are given. Make it like loot boxes?*** 
+    /// </summary>
+    public class RewardManager : MonoBehaviour
     {
-        
-    }
+        [SerializeField] int minEXP= 10, maxEXP = 100, minGold=100, maxGold=2000;  
+        public static RewardManager INSTANCE { get; private set; }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public void Awake()
+        {
+            INSTANCE = this;
+        }
+
+        //eventually item if possible
+        public Reward CreateReward() 
+        {
+            return new Reward(Random.Range(minEXP, maxEXP), Random.Range(minGold, maxGold));
+        }
+
+        public Reward CreateBigReward() 
+        {
+            return new Reward(10*Random.Range(minEXP, maxEXP), 20*Random.Range(minGold, maxGold));
+        }
+
     }
 }

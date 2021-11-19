@@ -19,6 +19,7 @@ namespace SelfQuest
             isBonus = b;
             SetQLine(qline);
             secondarySkill = null;
+            checklist = new List<string>();
         }
 
         public void SetQLine(QuestLine ql)
