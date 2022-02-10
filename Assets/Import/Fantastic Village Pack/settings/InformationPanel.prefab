@@ -252,6 +252,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "IMPORTANT NOTE:\r\n\r\nMake sure you have Post Processing installed by
-    using Unity's Package Manager. \n\r\nFor more information and guides check out
-    the PDF documentation included in this package."
+  m_Text: "IMPORTANT NOTE:\r\n\r\nIf you are using the Universal Render Pipeline,
+    make sure to apply the shader \"S_water_URP\" to the water material. To do so,
+    select the water material, navigate to the shader drop down menu in its inspector
+    tab and choose the URP shader located in the \"Fantastic\" folder.\n\r\nFor more
+    information and guides check out the PDF documentation included in this package."

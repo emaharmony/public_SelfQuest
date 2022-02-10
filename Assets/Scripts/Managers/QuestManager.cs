@@ -7,8 +7,8 @@ namespace SelfQuest
     {
         public static QuestManager INSTANCE { get; private set; }
         int currentQuestLine = 0;
-
         List<QuestLine> pool;
+        public Quest chosenQuest { get; set; }
 
         private void Awake()
         {
@@ -65,6 +65,24 @@ namespace SelfQuest
         {
             currentQuestLine = Mathf.Abs( (currentQuestLine - 1) % pool.Count);
             ScrollManager.INSTANCE.PopulateQuests();
+        }
+        public void FinishQuest() 
+        {
+           if (chosenQuest.isDone) return;
+
+           PlayerManager.INSTANCE.GivePlayerRewards(pool[currentQuestLine].Skill, chosenQuest.secondarySkill, chosenQuest.reward.EXP, chosenQuest.reward.GOLD);
+           pool[currentQuestLine].ListOfQuests.Remove(chosenQuest);
+           ScrollManager.INSTANCE.PopulateQuests();
+           chosenQuest.SetDone();
+        }
+
+        public void FinishQuestLine() 
+        {
+           
+            PlayerManager.INSTANCE.GivePlayerRewards(pool[currentQuestLine].Skill, null, pool[currentQuestLine].Reward.EXP, pool[currentQuestLine].Reward.GOLD);
+            RemoveQuest(pool[currentQuestLine]);
+            ScrollManager.INSTANCE.PopulateQuests();
+            
         }
     }
 

@@ -1,5 +1,33 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7161064188567830202
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 556797029e73b2347956b6579e77e05b, type: 3}
+  m_Name: DepthOfField
+  m_EditorClassIdentifier: 
+  active: 0
+  enabled:
+    overrideState: 1
+    value: 1
+  focusDistance:
+    overrideState: 1
+    value: 9
+  aperture:
+    overrideState: 0
+    value: 2.8
+  focalLength:
+    overrideState: 1
+    value: 88
+  kernelSize:
+    overrideState: 1
+    value: 0
 --- !u!114 &-3918278984351239751
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -71,7 +99,7 @@ MonoBehaviour:
     value: 0
   postExposure:
     overrideState: 1
-    value: 0.47
+    value: 0.2
   contrast:
     overrideState: 1
     value: -8
@@ -104,10 +132,10 @@ MonoBehaviour:
     value: 100
   lift:
     overrideState: 1
-    value: {x: 0.94683295, y: 0.80648863, z: 1, w: 0.03873467}
+    value: {x: 0.9193283, y: 0.7518003, z: 1, w: 0.03873467}
   gamma:
     overrideState: 1
-    value: {x: 0.95018595, y: 0.8163681, z: 1, w: 0.16139434}
+    value: {x: 1, y: 0.6911251, z: 0.93834645, w: 0.16139434}
   gain:
     overrideState: 0
     value: {x: 0.9878685, y: 1, z: 0.9946815, w: 0.012618297}
@@ -1326,56 +1354,7 @@ MonoBehaviour:
   settings:
   - {fileID: 8544656965565419527}
   - {fileID: -3918278984351239751}
-  - {fileID: 2324186157305711526}
---- !u!114 &2324186157305711526
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1cb7e9e120078f43bce4f0b1be547a7, type: 3}
-  m_Name: AmbientOcclusion
-  m_EditorClassIdentifier: 
-  active: 1
-  enabled:
-    overrideState: 1
-    value: 1
-  mode:
-    overrideState: 1
-    value: 1
-  intensity:
-    overrideState: 1
-    value: 0.13
-  color:
-    overrideState: 1
-    value: {r: 0.04142934, g: 0.056935173, b: 0.1792453, a: 1}
-  ambientOnly:
-    overrideState: 0
-    value: 1
-  noiseFilterTolerance:
-    overrideState: 0
-    value: 0
-  blurTolerance:
-    overrideState: 0
-    value: -4.6
-  upsampleTolerance:
-    overrideState: 0
-    value: -12
-  thicknessModifier:
-    overrideState: 0
-    value: 1
-  directLightingStrength:
-    overrideState: 0
-    value: 0
-  radius:
-    overrideState: 1
-    value: 0.15
-  quality:
-    overrideState: 1
-    value: 3
+  - {fileID: -7161064188567830202}
 --- !u!114 &8544656965565419527
 MonoBehaviour:
   m_ObjectHideFlags: 3

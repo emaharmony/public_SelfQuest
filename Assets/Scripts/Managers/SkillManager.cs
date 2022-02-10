@@ -41,6 +41,10 @@ namespace SelfQuest
             pool[index].AddEXP(exp);
         }
 
+        public void LevelSkill(Skill index, int exp)
+        {
+            index.AddEXP(exp);
+        }
         public void UpdateUI() 
         {
 

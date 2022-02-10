@@ -94,11 +94,6 @@ public class FlickeringLight : MonoBehaviour {
 
      }
 
-
-
-
-
-
     private void Position()
     {
 

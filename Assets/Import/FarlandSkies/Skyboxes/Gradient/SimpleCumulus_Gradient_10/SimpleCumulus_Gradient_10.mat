@@ -94,7 +94,11 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+<<<<<<< Updated upstream
     - _Rotation: 35.658875
+=======
+    - _Rotation: 11.528757
+>>>>>>> Stashed changes
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1

@@ -6,11 +6,13 @@ namespace SelfQuest
 {
     public class Reward
     {
-        protected int exp, gold;
         public Reward(int e, int g)
         {
-            exp = e;
-            gold = g;
+            EXP = e;
+            GOLD = g;
         }
+
+        public int EXP { get; internal set; }
+        public int GOLD { get; internal set; }
     }
 }

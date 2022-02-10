@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Canvas
   - HUDcam
+  - NightLight
   layers:
   - Default
   - TransparentFX

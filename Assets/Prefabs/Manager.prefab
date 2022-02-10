@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 5086927418488682295}
   - component: {fileID: 5086927418488682294}
   - component: {fileID: -7861870530091629512}
+  - component: {fileID: 1212594694}
+  - component: {fileID: 1212594695}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -54,5 +56,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b09999b7b8a1c2c41b6e10e330a91eef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minEXP: 10
+  maxEXP: 100
+  minGold: 100
+  maxGold: 2000
+--- !u!114 &1212594694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5086927418488682292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b90c6d9efb6cbc0478be83e3b148cc0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pool: []
+--- !u!114 &1212594695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5086927418488682292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14e7699536b332d4cbc8cbc228af1077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

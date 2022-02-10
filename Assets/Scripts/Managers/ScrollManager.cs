@@ -9,8 +9,7 @@ namespace SelfQuest
     public class ScrollManager : MonoBehaviour
     {
         public static ScrollManager INSTANCE { get; private set; }
-        bool isOpen = false;
-
+        bool isStatsOpen = false;
         List<GameObject> questListItems = new List<GameObject>();
 
         [Header("Animation/Info")]
@@ -38,12 +37,24 @@ namespace SelfQuest
         [SerializeField] TextMeshProUGUI r_gold;
         [SerializeField] TextMeshProUGUI r_xp;
         [SerializeField] Image rewardIcon;
+        [SerializeField] Button doneButton;
 
         [Space(2)]
         [Header("New Quest UI")]
         [SerializeField] GameObject newLineUI;
         [SerializeField] GameObject newSubUI;
-        
+
+        [Space(2)]
+        [Header("Player Stats UI")]
+        [SerializeField] GameObject playerStatWindow;
+        [SerializeField] TextMeshProUGUI gold, overAllExp, level, playerName;
+
+        [Space(2)]
+        [Header("Skill Stats UI")]
+        [SerializeField] GameObject skillMenu;
+        [SerializeField] TextMeshProUGUI skillEXP, skillLevel, skillName;
+
+
 
         private void Awake()
         {
@@ -53,21 +64,24 @@ namespace SelfQuest
 
         private void Start()
         {
-            QuestLine test = new QuestLine("Test", QuestLine.QuestType.MAIN, "Myself");
+            QuestLine test = new QuestLine("Commence a Self Quest", QuestLine.QuestType.MAIN, "Myself");
             List<Skill> skillz = new List<Skill>();
-            skillz.Add(new Skill(name, null));
+            skillz.Add(new Skill("", null));
             test.Skill = skillz[0];
             test.AddQuest(new Quest("fuck you", true, test));
+            test.ListOfQuests[0].reward = RewardManager.INSTANCE.CreateReward();
+            test.Reward = RewardManager.INSTANCE.CreateBigReward();
             QuestManager.INSTANCE.AddQuest(test);
             PopulateQuests();
+            PlayerStatsScreen(false);
         }
 
         public void PopulateQuests()
         {
             if (QuestManager.INSTANCE == null) return;
-            if (QuestManager.INSTANCE.selectedQuestLine == null) return;
+            if (QuestManager.INSTANCE.selectedQuestLine == null) { CloseScroll();  return; }
 
-            //CloseQuestInfo();
+            CloseQuestInfo();
             QuestLine l = QuestManager.INSTANCE.selectedQuestLine;
             questLineName.text = l.Name;
             giver.text = l.Giver;
@@ -112,7 +126,8 @@ namespace SelfQuest
             title.text = q.name;
             questInfoPanel.alpha = 1;
             questInfoPanel.blocksRaycasts = questInfoPanel.interactable = true;
-            
+            QuestManager.INSTANCE.chosenQuest = q;
+            doneButton.onClick.AddListener(FinishUpQuest);
         }
 
         public void CloseQuestInfo()
@@ -172,6 +187,7 @@ namespace SelfQuest
             subAnimate.speed = s;
             subAnimate.SetBool("isOpen", false);
         }
+
         public void OpenNewQuestLineUIMenu()
         {
             CloseScroll();
@@ -201,6 +217,31 @@ namespace SelfQuest
         {
             newLineUI.SetActive(false);
             newSubUI.SetActive(true);
+        }
+
+        public void PlayerStatsScreen()
+        {
+            isStatsOpen = !isStatsOpen;
+            playerStatWindow.SetActive(isStatsOpen);
+            overAllExp.text = PlayerManager.INSTANCE.currExp.ToString();
+            level.text = PlayerManager.INSTANCE.overallLvl.ToString();
+            playerName.text = PlayerManager.INSTANCE.playerName;
+            gold.text = PlayerManager.INSTANCE.currGold.ToString();
+        }
+
+        public void PlayerStatsScreen(bool b)
+        {
+            isStatsOpen = b;
+            playerStatWindow.SetActive(isStatsOpen);
+            overAllExp.text = PlayerManager.INSTANCE.currExp.ToString();
+            level.text = PlayerManager.INSTANCE.overallLvl.ToString();
+            playerName.text = PlayerManager.INSTANCE.playerName;
+            gold.text = PlayerManager.INSTANCE.currGold.ToString();
+        }
+
+        void FinishUpQuest() 
+        {
+            QuestManager.INSTANCE.FinishQuest();
         }
     }
 }
