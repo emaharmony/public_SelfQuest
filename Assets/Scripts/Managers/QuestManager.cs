@@ -8,6 +8,7 @@ namespace SelfQuest
         public static QuestManager INSTANCE { get; private set; }
         int currentQuestLine = 0;
         List<QuestLine> pool;
+
         public Quest chosenQuest { get; set; }
 
         private void Awake()
@@ -15,6 +16,11 @@ namespace SelfQuest
             INSTANCE = this;
             pool = new List<QuestLine>();
 
+        }
+
+        public bool NoQuests() 
+        {
+            return pool.Count == 0;
         }
 
         public void AddQuest(QuestLine newQ)

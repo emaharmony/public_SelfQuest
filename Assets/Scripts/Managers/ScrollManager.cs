@@ -76,6 +76,11 @@ namespace SelfQuest
             PlayerStatsScreen(false);
         }
 
+        public void OpenCurrentQuestView()
+        {
+
+        }
+
         public void PopulateQuests()
         {
             if (QuestManager.INSTANCE == null) return;
@@ -109,12 +114,16 @@ namespace SelfQuest
 
         public void OpenQuestList()
         {
-            questLog.alpha = 1;
-            questLog.interactable = questLog.blocksRaycasts = true;
-            questInfoPanel.alpha = 0;
-            questInfoPanel.blocksRaycasts = questInfoPanel.interactable = false;
+            if (!QuestManager.INSTANCE.NoQuests())
+            {
+                questLog.alpha = 1;
+                questLog.interactable = questLog.blocksRaycasts = true;
+                questInfoPanel.alpha = 0;
+                questInfoPanel.blocksRaycasts = questInfoPanel.interactable = false;
+                Invoke("OpenScroll", 0.5f);
+            }
+
             CloseSubScroll(2f);
-            Invoke("OpenScroll",0.5f);
 
         }
 
