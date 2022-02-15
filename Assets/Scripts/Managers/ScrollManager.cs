@@ -51,7 +51,7 @@ namespace SelfQuest
 
         [Space(2)]
         [Header("Skill Stats UI")]
-        [SerializeField] GameObject skillMenu;
+        [SerializeField] GameObject skillMenu, newSkillWindow;
         [SerializeField] TextMeshProUGUI skillEXP, skillLevel, skillName;
 
 
@@ -66,7 +66,7 @@ namespace SelfQuest
         {
             QuestLine test = new QuestLine("Commence a Self Quest", QuestLine.QuestType.MAIN, "Myself");
             List<Skill> skillz = new List<Skill>();
-            skillz.Add(new Skill("", null));
+            skillz.Add(new Skill("", Color.green));
             test.Skill = skillz[0];
             test.AddQuest(new Quest("fuck you", true, test));
             test.ListOfQuests[0].reward = RewardManager.INSTANCE.CreateReward();
@@ -208,12 +208,15 @@ namespace SelfQuest
 
         public void OpenNewSkillMenu()
         {
+            skillMenu.SetActive(true);
+            newSkillWindow.SetActive(true);
 
         }
 
         public void CloseNewSkillMenu()
         {
-
+            skillMenu.SetActive(false);
+            newSkillWindow.SetActive(false);
         }
 
         public void TurnOnNewQuestLine()

@@ -9,7 +9,7 @@ namespace SelfQuest.UI
     public class NewEditSkillUI : MonoBehaviour
     {
         [SerializeField] TMP_InputField skillName;
-        [SerializeField] Image skillIcon;
+        [SerializeField] Button skillColor;
 
         Skill skill;
 
@@ -17,8 +17,14 @@ namespace SelfQuest.UI
         public void CreateNewSkill()
         {
             if (skillName.text == "") return;
-            skill = new Skill(skillName.text, skillIcon.sprite);
+            skill = new Skill(skillName.text, skillColor.image.color);
             SkillManager.INSTANCE.AddSkill(skill);
+            skillName.text = "";
+        }
+
+        public void EditSkill(Skill s, int index) 
+        {
+            
         }
     }
 }

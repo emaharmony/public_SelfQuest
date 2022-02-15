@@ -35,9 +35,10 @@ public class DayNightManager : MonoBehaviour
 
     private void Update()
     {
+        SpinningCloud();
+
         if (Preset == null)
             return;
-        SpinningCloud();
         if (Application.isPlaying)
         {
             #region Evening

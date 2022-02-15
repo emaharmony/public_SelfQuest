@@ -62,6 +62,9 @@ namespace SelfQuest.UI
 
             QuestManager.INSTANCE.AddQuest(chosenQuestLine);
             ScrollManager.INSTANCE.PopulateQuests();
+            qname.text = "";
+            giver.text = "";
+
         }
 
         public void EditQuestLine(int i)

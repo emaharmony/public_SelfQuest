@@ -51,17 +51,19 @@ namespace SelfQuest.UI
             QuestLine questLine = QuestManager.INSTANCE.GetQuestLine(i);
             making = new Quest(qname.text, isBonus, questLine);
             making.secondarySkill = SkillManager.INSTANCE.GetSkill(ChosenSkill);
+            
         }
 
         public void CreateQuest()
         {
             making = new Quest(qname.text, isBonus, QuestManager.INSTANCE.GetQuestLine(ChosenQline));
             making.reward = RewardManager.INSTANCE.CreateReward();
-            foreach (TMP_InputField io in checkListItems) 
+            foreach (TMP_InputField io in checkListItems)
                 making.checklist.Add(io.text);
 
             ScrollManager.INSTANCE.OpenNewQuestLineUIMenu();
             NewEditQuestLineUI.INSTANCE.AddNewSubQuest(making);
+            qname.text = "";
         }
 
         public void SetQuest(Quest q)

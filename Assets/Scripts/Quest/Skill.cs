@@ -9,14 +9,14 @@ namespace SelfQuest
     public class Skill
     {
         [SerializeField]string skillName;
-        [SerializeField] Sprite icon;
+        [SerializeField] Color color;
         [SerializeField] int exp, expTillNextLvl;
         [SerializeField] int lvl;
 
-        public Skill(string name, Sprite i)
+        public Skill(string name, Color i)
         {
             skillName = name;
-            icon = i;
+            color = i;
             exp = 0;
             lvl = 1;
             expTillNextLvl = 5;
