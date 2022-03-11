@@ -9,7 +9,7 @@ namespace SelfQuest
         public List<string> checklist { get; set; }
 
         public bool isBonus = false;
-        public Skill secondarySkill { get; set; }
+//        public Skill secondarySkill { get; set; }
         public Reward reward { get; set; }
         public QuestLine questLine { get; private set; }
 
@@ -22,7 +22,7 @@ namespace SelfQuest
             name = n;
             isBonus = b;
             SetQLine(qline);
-            secondarySkill = null;
+           // secondarySkill = null;
             checklist = new List<string>();
         }
         public Quest(string n, bool b, QuestLine qline, int ind)
@@ -30,7 +30,7 @@ namespace SelfQuest
             name = n;
             isBonus = b;
             SetQLine(qline);
-            secondarySkill = null;
+           // secondarySkill = null;
             checklist = new List<string>();
             QUEST_LINE_IND = ind;
         }

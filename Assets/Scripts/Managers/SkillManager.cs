@@ -13,17 +13,12 @@ namespace SelfQuest
 
         public static SkillManager INSTANCE;
 
-        [SerializeField] List<Skill> pool; //save these in the persistent data
+        public List<Skill> pool; //save these in the persistent data
+
 
         private void Awake()
         {
             INSTANCE = this;
-        }
-        private void Start()
-        {
-            //Get pool of added Skills;
-            AddSkill(new Skill("swole", Color.gray));
-
         }
 
         public void AddSkill(Skill s)
@@ -49,6 +44,5 @@ namespace SelfQuest
         {
 
         }
-
     }
 }

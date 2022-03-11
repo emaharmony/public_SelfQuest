@@ -10,48 +10,58 @@ namespace SelfQuest
     public class PlayerManager : MonoBehaviour
     {
         public static PlayerManager INSTANCE { get; private set; }
-        public string playerName { get; private set; }
-       public int overallLvl { get; private set; }
-        public int currExp { get; private set; } 
-        public int nextLvlEXP { get; private set; } 
-        public int currGold { get; private set; }
+        public string playerName { get;  set; }
+       public int overallLvl { get;  set; }
+        public int currExp { get;  set; } 
+        public int nextLvlEXP { get;  set; } 
+        public int currGold { get;  set; }
 
-        const string PREF_LEVEL = "playerLvl", CURR_EXP_PREF = "current_exp", PREF_GOLD = "gold", PREF_NXT_LVL= "nxt_lvl_exp";
+        public int returningPlayer { get;  set; }
+        
 
         private void Awake()
         {
             INSTANCE = this;
         }
+
         // Start is called before the first frame update
         void Start()
         {
-            //grab values from pref
-            overallLvl = 1; currExp = 0; nextLvlEXP = 0; currGold = 0;
+            nextLvlEXP = 50 * (overallLvl ^ 2) - (50 * overallLvl);
+
         }
 
 
-        public void GivePlayerRewards(int primarySkill, int secondarySkill, int exp, int gold)
+        public void GivePlayerRewards(int primarySkill, /*int secondarySkill,*/ int exp, int gold)
         {
             currExp += exp;
             currGold += gold;
             SkillManager.INSTANCE.LevelSkill(primarySkill, exp);
                 
-            if (secondarySkill != -1) SkillManager.INSTANCE.LevelSkill(secondarySkill, exp);
+            //if (secondarySkill != -1) SkillManager.INSTANCE.LevelSkill(secondarySkill, exp);
 
         }
 
-        public void GivePlayerRewards(Skill primarySkill, Skill secondarySkill, int exp, int gold)
+        public void GivePlayerRewards(Skill primarySkill,/* Skill secondarySkill,*/ int exp, int gold)
         {
             Debug.Log("Rewards: gold ->" + gold + " exp -> " + exp);
             currExp += exp;
             currGold += gold;
             primarySkill.AddEXP(exp);
-            if (secondarySkill != null) secondarySkill.AddEXP(exp);
+            //if (secondarySkill != null) secondarySkill.AddEXP(exp);
 
         }
         public void EditName(string s)
         {
-            playerName = s;   
+            playerName = s;
         }
+
+        public void LevelUp() 
+        {
+            overallLvl++;
+            nextLvlEXP = 50 * (overallLvl ^ 2) - (50 * overallLvl);
+        }
+
+
     }
 }

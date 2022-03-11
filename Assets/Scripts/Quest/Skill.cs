@@ -8,7 +8,7 @@ namespace SelfQuest
     [Serializable]
     public class Skill
     {
-        [SerializeField]string skillName;
+        [SerializeField] string skillName;
         [SerializeField] Color color;
         [SerializeField] int exp, expTillNextLvl;
         [SerializeField] int lvl;
@@ -31,8 +31,13 @@ namespace SelfQuest
 
         void LevelSkill() 
         {
-            expTillNextLvl *= 2; //find better formula
             lvl++;
+            expTillNextLvl = Mathf.FloorToInt((4 * (lvl ^ 3)) / 5);
+
         }
+
+        public string Name { get { return skillName; } set { skillName = value; } }
+        public int EXP { get { return exp; } set { exp = value; } }
+        public int LVL { get { return lvl; } set { lvl = value; } }
     }
 }

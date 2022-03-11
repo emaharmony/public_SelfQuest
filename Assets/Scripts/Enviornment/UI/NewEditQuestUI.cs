@@ -50,7 +50,7 @@ namespace SelfQuest.UI
 
             QuestLine questLine = QuestManager.INSTANCE.GetQuestLine(i);
             making = new Quest(qname.text, isBonus, questLine);
-            making.secondarySkill = SkillManager.INSTANCE.GetSkill(ChosenSkill);
+           // making.secondarySkill = SkillManager.INSTANCE.GetSkill(ChosenSkill);
             
         }
 
