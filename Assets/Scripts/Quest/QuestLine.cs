@@ -4,6 +4,7 @@ using System;
 
 namespace SelfQuest
 {
+    [Serializable]
     public class QuestLine
     {
         /// <summary>
@@ -40,16 +41,15 @@ namespace SelfQuest
             ListOfQuests.Add(newQ);
         }
 
-        public string Name { get; set; }
+        public string Name;
 
-        public string Giver { get; set; }
+        public string Giver;
+        public QuestType Qtype;
 
-        public QuestType Qtype { get; set; }
+        public List<Quest> ListOfQuests;
 
-        public List<Quest> ListOfQuests { get; set; }
+        public Skill Skill;
 
-        public Skill Skill { get; set; }
-
-        public Reward Reward { get; set; }
+        public Reward Reward;
     }
 }

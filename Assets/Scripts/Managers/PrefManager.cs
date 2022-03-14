@@ -44,12 +44,12 @@ namespace SelfQuest
 
         public void LoadQuestPrefs()
         {
-            if (PlayerPrefs.GetInt(PREF_QUESTLINE_COUNT, -1) != -1)
+            if (PlayerPrefs.GetInt(PREF_QUESTLINE_COUNT, -1) > -1)
             {
-                quests.pool = new List<QuestLine>(PlayerPrefs.GetInt(PREF_QUESTLINE_COUNT));
+                quests.pool = new List<QuestLine>();
                 for (int i = 0; i < quests.pool.Count; i++)
                 {
-                    quests.pool[i] = new QuestLine();
+                    quests.pool.Add(new QuestLine());
                     quests.pool[i].Name = PlayerPrefs.GetString(PREF_QLNAME + i);
                     quests.pool[i].Giver = PlayerPrefs.GetString(PREF_QLGIVER + i);
                     quests.pool[i].Skill = skills.pool[PlayerPrefs.GetInt(PREF_QUESTLINE_SKILL + i)];
@@ -58,6 +58,7 @@ namespace SelfQuest
                     List<Quest> qList = new List<Quest>(PlayerPrefs.GetInt(PREF_QCOUNT + i));
                     for (int j = 0; j < qList.Count; j++)
                     {
+                        Debug.Log(PREF_QNAME + "-" + i + "-" + j);
                         qList[j] = new Quest(PlayerPrefs.GetString(PREF_QNAME + "-" + i + "-" + j), false, quests.pool[i]);
                         qList[j].reward = new Reward(PlayerPrefs.GetInt(PREF_Q_REWARD_EXP + "-" + i + "-" + j), PlayerPrefs.GetInt(PREF_Q_REWARD_GOLD + "-" + i + "-" + j));
                     }
@@ -70,17 +71,17 @@ namespace SelfQuest
         public void LoadSkillPrefs()
         {
             //Get pool of added Skills;
-            if (PlayerPrefs.GetInt(PREF_SKILL_COUNT, -1) == -1)
+            if (PlayerPrefs.GetInt(PREF_SKILL_COUNT, -1) <= 0)
             {
                 skills.AddSkill(new Skill("swole", Color.gray));
             }
             else
             {
                 int count = PlayerPrefs.GetInt(PREF_SKILL_COUNT);
-                skills.pool = new List<Skill>(count);
+                skills.pool = new List<Skill>();
                 for (int i = 0; i < count; i++)
                 {
-                    skills.pool[i] = new Skill("", Color.green);
+                    skills.pool.Add(new Skill("", Color.green));
                     skills.pool[i].Name = PlayerPrefs.GetString(PREF_SKILL_NAME + i);
                     skills.pool[i].EXP = PlayerPrefs.GetInt(PREF_SKILL_EXP + i);
                     skills.pool[i].LVL = PlayerPrefs.GetInt(PREF_SKILL_LEVEL + i);
@@ -92,7 +93,7 @@ namespace SelfQuest
         {
             if (PlayerPrefs.GetInt(NEW_PLAYER, 0) == 0)
             {
-                player.returningPlayer = 0;
+                player.returningPlayer = 1;
                 player.overallLvl = 1;
                 player.currExp = 0;
                 player.nextLvlEXP = 0;
@@ -142,6 +143,7 @@ namespace SelfQuest
                 PlayerPrefs.SetInt(PREF_QCOUNT + i, quests.pool[i].ListOfQuests.Count);
                 for (int j = 0; j < quests.pool[i].ListOfQuests.Count; j++)
                 {
+                    Debug.Log(PREF_QNAME + "-" + i + "-" + j);
                     PlayerPrefs.SetString((PREF_QNAME + "-" + i + "-" + j), quests.pool[i].ListOfQuests[j].name);
                     PlayerPrefs.SetInt(PREF_Q_REWARD_EXP + "-" + i + "-" + j, quests.pool[i].ListOfQuests[j].reward.EXP);
                     PlayerPrefs.SetInt(PREF_Q_REWARD_GOLD + "-" + i + "-" + j, quests.pool[i].ListOfQuests[j].reward.GOLD);
@@ -152,6 +154,7 @@ namespace SelfQuest
         public void SaveUserPrefs() 
         {
             if (player == null) return;
+            PlayerPrefs.SetInt(NEW_PLAYER, 1);
             PlayerPrefs.SetInt(PREF_LEVEL, player.overallLvl);
             PlayerPrefs.SetInt(PREF_GOLD, player.currGold);
             PlayerPrefs.SetInt(CURR_EXP_PREF, player.currExp);

@@ -42,7 +42,7 @@ public class DayNightManager : MonoBehaviour
         if (Application.isPlaying)
         {
             #region Evening
-            EVENING = TimeOfDay >= 17 || TimeOfDay < 5;
+            EVENING = TimeOfDay >= 17 || TimeOfDay < 8;
             if (EVENING && !lightsOn)
             {
                 lightsOn = true;

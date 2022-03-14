@@ -10,15 +10,14 @@ namespace SelfQuest
     public class PlayerManager : MonoBehaviour
     {
         public static PlayerManager INSTANCE { get; private set; }
-        public string playerName { get;  set; }
-       public int overallLvl { get;  set; }
-        public int currExp { get;  set; } 
-        public int nextLvlEXP { get;  set; } 
-        public int currGold { get;  set; }
-
-        public int returningPlayer { get;  set; }
+        public string playerName;
+        public int overallLvl;
+        public int currExp;
+        public int nextLvlEXP;
+        public int currGold;
+        public int returningPlayer;
         
-
+        
         private void Awake()
         {
             INSTANCE = this;

@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System;
 
 namespace SelfQuest
 {
+    [Serializable]
     public class Reward
     {
         public Reward(int e, int g)
