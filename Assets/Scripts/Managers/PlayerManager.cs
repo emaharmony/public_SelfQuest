@@ -36,7 +36,8 @@ namespace SelfQuest
             currExp += exp;
             currGold += gold;
             SkillManager.INSTANCE.LevelSkill(primarySkill, exp);
-                
+            if (currExp >= nextLvlEXP)
+                StartCoroutine(LevelUp());     
             //if (secondarySkill != -1) SkillManager.INSTANCE.LevelSkill(secondarySkill, exp);
 
         }
@@ -47,6 +48,8 @@ namespace SelfQuest
             currExp += exp;
             currGold += gold;
             primarySkill.AddEXP(exp);
+            if(currExp >= nextLvlEXP)
+                StartCoroutine(LevelUp());
             //if (secondarySkill != null) secondarySkill.AddEXP(exp);
 
         }
@@ -55,10 +58,16 @@ namespace SelfQuest
             playerName = s;
         }
 
-        public void LevelUp() 
+        public IEnumerator LevelUp()
         {
-            overallLvl++;
-            nextLvlEXP = 50 * (overallLvl ^ 2) - (50 * overallLvl);
+            while (currExp >= nextLvlEXP)
+            {
+                overallLvl++;
+                nextLvlEXP = 50 * (overallLvl ^ 2) - (50 * overallLvl);
+                yield return null;
+            }
+
+            yield return null;
         }
 
 
