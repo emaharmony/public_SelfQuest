@@ -43,17 +43,24 @@ namespace SelfQuest
         [Header("New Quest UI")]
         [SerializeField] GameObject newLineUI;
         [SerializeField] GameObject newSubUI;
+        [SerializeField] TMP_Dropdown skillDropDown;
 
         [Space(2)]
         [Header("Player Stats UI")]
         [SerializeField] GameObject playerStatWindow;
-        [SerializeField] TextMeshProUGUI gold, overAllExp, level, playerName;
+        [SerializeField] GameObject overallStats;
+        [SerializeField] TextMeshProUGUI gold, overAllExp, level;
+        [SerializeField] TMP_InputField playerName;
 
         [Space(2)]
         [Header("Skill Stats UI")]
-        [SerializeField] GameObject skillMenu, newSkillWindow;
-        [SerializeField] TextMeshProUGUI skillEXP, skillLevel, skillName;
+        [SerializeField] GameObject skillMenu;
+        [SerializeField] GameObject skillListPrefab;
+        [SerializeField] RectTransform skillListParent;
 
+        [Space(2)]
+        [Header("NEW Skill UI")]
+        [SerializeField] GameObject newSkillWindow;
 
 
         private void Awake()
@@ -76,6 +83,7 @@ namespace SelfQuest
             PlayerStatsScreen(false);
         }
 
+        #region Quest View
         public void OpenCurrentQuestView()
         {
 
@@ -203,22 +211,13 @@ namespace SelfQuest
             Invoke("OpenSubScroll", 0.5f);
             newLineUI.SetActive(true);
             newSubUI.SetActive(false);
-
+            PopulateSkillDropdown();
         }
 
-        public void OpenNewSkillMenu()
+        void FinishUpQuest()
         {
-            skillMenu.SetActive(true);
-            newSkillWindow.SetActive(true);
-
+            QuestManager.INSTANCE.FinishQuest();
         }
-
-        public void CloseNewSkillMenu()
-        {
-            skillMenu.SetActive(false);
-            newSkillWindow.SetActive(false);
-        }
-
         public void TurnOnNewQuestLine()
         {
             newLineUI.SetActive(true);
@@ -231,29 +230,87 @@ namespace SelfQuest
             newSubUI.SetActive(true);
         }
 
+        void PopulateSkillDropdown() 
+        {
+            skillDropDown.ClearOptions();
+            foreach (Skill s in SkillManager.INSTANCE.pool)
+            {
+                skillDropDown.options.Add(new TMP_Dropdown.OptionData() { text = s.Name }) ;
+            }
+        }
+        #endregion
+
+        #region Player Stats 
+        public void OpenNewSkillMenu()
+        {
+            newSkillWindow.SetActive(true);
+            newSkillWindow.transform.SetAsLastSibling();
+        }
+
+        public void CloseNewSkillMenu()
+        {
+            newSkillWindow.SetActive(false);
+            OpenSkillMenu();
+        }
+
+        public void OpenSkillMenu() 
+        {
+            overallStats.SetActive(false);
+            PopulateSkillList();
+            skillMenu.SetActive(true);
+            skillMenu.transform.SetAsLastSibling();
+        }
+
+        public void CloseSkillMenu() 
+        {
+            skillMenu.SetActive(false);
+            overallStats.SetActive(true);
+        }
+
         public void PlayerStatsScreen()
         {
             isStatsOpen = !isStatsOpen;
             playerStatWindow.SetActive(isStatsOpen);
+            CloseNewSkillMenu();
+            CloseSkillMenu();
             overAllExp.text = PlayerManager.INSTANCE.currExp.ToString();
             level.text = PlayerManager.INSTANCE.overallLvl.ToString();
             playerName.text = PlayerManager.INSTANCE.playerName;
             gold.text = PlayerManager.INSTANCE.currGold.ToString();
+            playerStatWindow.transform.SetAsLastSibling();
         }
 
         public void PlayerStatsScreen(bool b)
         {
             isStatsOpen = b;
             playerStatWindow.SetActive(isStatsOpen);
+            CloseNewSkillMenu();
+            CloseSkillMenu();
             overAllExp.text = PlayerManager.INSTANCE.currExp.ToString();
             level.text = PlayerManager.INSTANCE.overallLvl.ToString();
             playerName.text = PlayerManager.INSTANCE.playerName;
             gold.text = PlayerManager.INSTANCE.currGold.ToString();
+            playerStatWindow.transform.SetAsLastSibling();
         }
 
-        void FinishUpQuest() 
+        void PopulateSkillList() 
         {
-            QuestManager.INSTANCE.FinishQuest();
+            if (SkillManager.INSTANCE == null) return;
+
+            foreach (Transform x in skillListParent)
+            {
+                Destroy(x.gameObject);
+            }
+
+            foreach (Skill s in SkillManager.INSTANCE.pool) 
+            {
+                SkillListItem go = Instantiate(skillListPrefab).GetComponent<SkillListItem>();
+                go.attachedIndex = SkillManager.INSTANCE.pool.IndexOf(s);
+                go.SetText(s.Name, s.LVL.ToString());
+                go.transform.parent = skillListParent;
+                go.SetColor(s.SkillColor);
+            }
         }
+        #endregion
     }
 }

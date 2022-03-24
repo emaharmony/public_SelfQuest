@@ -12,7 +12,6 @@ namespace SelfQuest.UI
     {
         public static NewEditQuestLineUI INSTANCE { get; private set; }
         public TMP_InputField qname, giver;
-        [SerializeField] TMP_Dropdown qtype;
         int skillz;
         [SerializeField] Transform subQuestParent;
         [SerializeField] Button subQuestListPrefab;

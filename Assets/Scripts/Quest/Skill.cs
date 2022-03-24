@@ -39,5 +39,7 @@ namespace SelfQuest
         public string Name { get { return skillName; } set { skillName = value; } }
         public int EXP { get { return exp; } set { exp = value; } }
         public int LVL { get { return lvl; } set { lvl = value; } }
+
+        public Color SkillColor { get { return color; } set { color = value; } }
     }
 }

@@ -19,7 +19,7 @@ namespace SelfQuest.UI
             if (skillName.text == "") return;
             skill = new Skill(skillName.text, skillColor);
             SkillManager.INSTANCE.AddSkill(skill);
-            skillName.text = "";
+            ScrollManager.INSTANCE.CloseNewSkillMenu();
         }
 
         public void EditSkill(int index) 
