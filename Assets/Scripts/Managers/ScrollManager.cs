@@ -61,6 +61,7 @@ namespace SelfQuest
         [Space(2)]
         [Header("NEW Skill UI")]
         [SerializeField] GameObject newSkillWindow;
+        [SerializeField] NewEditSkillUI editSkill;
 
 
         private void Awake()
@@ -247,6 +248,7 @@ namespace SelfQuest
             newSkillWindow.transform.SetAsLastSibling();
         }
 
+
         public void CloseNewSkillMenu()
         {
             newSkillWindow.SetActive(false);
@@ -309,6 +311,7 @@ namespace SelfQuest
                 go.SetText(s.Name, s.LVL.ToString());
                 go.transform.parent = skillListParent;
                 go.SetColor(s.SkillColor);
+                go.GetComponent<Button>().
             }
         }
         #endregion
