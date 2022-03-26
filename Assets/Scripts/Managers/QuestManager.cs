@@ -25,6 +25,7 @@ namespace SelfQuest
 
         public void AddQuest(QuestLine newQ)
         {
+            if (pool.Contains(newQ)) return;
             pool.Add(newQ);
 
         }
@@ -53,6 +54,8 @@ namespace SelfQuest
 
         public QuestLine GetQuestLine(int i)
         {
+            if (i < 0 || pool.Count <= 0) return null;
+
             return pool[i];
         }
 
@@ -80,6 +83,7 @@ namespace SelfQuest
            pool[currentQuestLine].ListOfQuests.Remove(chosenQuest);
            ScrollManager.INSTANCE.PopulateQuests();
            chosenQuest.SetDone();
+            SoundManager.INSTANCE.FinishQuest();
         }
 
         public void FinishQuestLine() 
@@ -88,7 +92,8 @@ namespace SelfQuest
             PlayerManager.INSTANCE.GivePlayerRewards(pool[currentQuestLine].Skill, /*null,*/ pool[currentQuestLine].Reward.EXP, pool[currentQuestLine].Reward.GOLD);
             RemoveQuest(pool[currentQuestLine]);
             ScrollManager.INSTANCE.PopulateQuests();
-            
+            SoundManager.INSTANCE.FinishQuest();
+
         }
     }
 

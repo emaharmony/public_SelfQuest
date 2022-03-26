@@ -63,7 +63,7 @@ namespace SelfQuest
             while (currExp >= nextLvlEXP)
             {
                 overallLvl++;
-                nextLvlEXP = 50 * (overallLvl ^ 2) - (50 * overallLvl);
+                nextLvlEXP = 100 * (overallLvl ^ 2) - (50 * overallLvl);
                 yield return null;
             }
 

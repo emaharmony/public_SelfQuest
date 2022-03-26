@@ -60,10 +60,9 @@ namespace SelfQuest.UI
             making.reward = RewardManager.INSTANCE.CreateReward();
             foreach (TMP_InputField io in checkListItems)
                 making.checklist.Add(io.text);
-
             ScrollManager.INSTANCE.OpenNewQuestLineUIMenu();
             NewEditQuestLineUI.INSTANCE.AddNewSubQuest(making);
-            qname.text = "";
+            ClearAllInfo();
         }
 
         public void SetQuest(Quest q)
@@ -72,5 +71,13 @@ namespace SelfQuest.UI
             qname.text = q.name;
             isBonus.isOn = q.isBonus;
         }
+
+        public void ClearAllInfo() 
+        {
+            making = null;
+            qname.text = "";
+            isBonus.isOn = false;
+        }
+
     }
 }

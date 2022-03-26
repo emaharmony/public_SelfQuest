@@ -16,7 +16,6 @@ namespace SelfQuest.UI
         [SerializeField] Transform subQuestParent;
         [SerializeField] Button subQuestListPrefab;
         List<Transform> subQuestButtons = new List<Transform>();
-        List<Quest> subQuests { get; set; }
         public int QuestType { get; set; }
 
         QuestLine chosenQuestLine = null;
@@ -24,7 +23,6 @@ namespace SelfQuest.UI
         void Awake()
         {
             INSTANCE = this;
-            subQuests = new List<Quest>();
         }
 
         public void PopulateLineInfo()
@@ -61,14 +59,22 @@ namespace SelfQuest.UI
 
             QuestManager.INSTANCE.AddQuest(chosenQuestLine);
             ScrollManager.INSTANCE.PopulateQuests();
-            qname.text = "";
-            giver.text = "";
-
+            ClearAllInfo();
         }
 
-        public void EditQuestLine(int i)
+        public void EditQuestLine()
         {
             //set QuestLine
+            ScrollManager.INSTANCE.OpenNewQuestLineUIMenu();
+            chosenQuestLine = QuestManager.INSTANCE.selectedQuestLine;
+            qname.text = chosenQuestLine.Name;
+            giver.text = chosenQuestLine.Giver;
+            foreach (Quest q in chosenQuestLine.ListOfQuests) 
+            {
+                Button b = Instantiate(subQuestListPrefab, subQuestParent).GetComponent<Button>();
+                b.onClick.AddListener(() => EditSubQuest(q));
+                subQuestButtons.Add(b.transform);
+            }
         }
 
         public void NewSubQuest()
@@ -81,6 +87,9 @@ namespace SelfQuest.UI
 
         public void AddNewSubQuest(Quest q)
         {
+            if (chosenQuestLine == null)
+                chosenQuestLine = new QuestLine();
+
             Button b = Instantiate(subQuestListPrefab, subQuestParent).GetComponent<Button>();
             b.onClick.AddListener(() => EditSubQuest(subQuestButtons.Count));
             subQuestButtons.Add(b.transform);
@@ -93,5 +102,23 @@ namespace SelfQuest.UI
             ScrollManager.INSTANCE.TurnOnNewQuest();
         }
 
+        public void EditSubQuest(Quest q)
+        {
+            NewEditQuestUI.INSTANCE.SetQuest(q);
+            ScrollManager.INSTANCE.TurnOnNewQuest();
+        }
+
+        public void ClearAllInfo() 
+        {
+
+            qname.text = "";
+            giver.text = "";
+            foreach (Transform t in subQuestButtons)
+            {
+                Destroy(t.gameObject);
+            }
+
+            subQuestButtons = new List<Transform>(); ;
+        }
     }
 }

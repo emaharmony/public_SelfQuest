@@ -9,7 +9,7 @@ namespace SelfQuest
     /// </summary>
     public class RewardManager : MonoBehaviour
     {
-        [SerializeField] int minEXP= 10, maxEXP = 100, minGold=100, maxGold=2000;  
+        [SerializeField] int minEXP= 10, maxEXP = 100, minGold=10, maxGold=100;  
         public static RewardManager INSTANCE { get; private set; }
 
         public void Awake()
@@ -25,7 +25,7 @@ namespace SelfQuest
 
         public Reward CreateBigReward() 
         {
-            return new Reward(10*Random.Range(minEXP, maxEXP), 20*Random.Range(minGold, maxGold));
+            return new Reward(Random.Range(10* minEXP, 5* maxEXP), Random.Range(10* minGold, 5* maxGold));
         }
 
     }

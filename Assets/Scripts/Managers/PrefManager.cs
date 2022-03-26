@@ -44,10 +44,19 @@ namespace SelfQuest
 
         public void LoadQuestPrefs()
         {
-            if (PlayerPrefs.GetInt(PREF_QUESTLINE_COUNT, -1) > -1)
+            if (PlayerPrefs.GetInt(PREF_QUESTLINE_COUNT, -1) <= -1) 
             {
+                QuestLine test = new QuestLine("Commence a Self Quest", QuestLine.QuestType.MAIN, "Myself");
+                List<Skill> skillz = new List<Skill>();
+                skillz.Add(new Skill("", Color.green));
+                test.Skill = skillz[0];
+                test.AddQuest(new Quest("fuck you", true, test));
+                test.ListOfQuests[0].reward = RewardManager.INSTANCE.CreateReward();
+                test.Reward = RewardManager.INSTANCE.CreateBigReward();
+                QuestManager.INSTANCE.AddQuest(test);
+            } else{
                 quests.pool = new List<QuestLine>();
-                for (int i = 0; i < quests.pool.Count; i++)
+                for (int i = 0; i < PlayerPrefs.GetInt(PREF_QUESTLINE_COUNT); i++)
                 {
                     quests.pool.Add(new QuestLine());
                     quests.pool[i].Name = PlayerPrefs.GetString(PREF_QLNAME + i);

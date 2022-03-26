@@ -32,7 +32,7 @@ namespace SelfQuest
         void LevelSkill() 
         {
             lvl++;
-            expTillNextLvl = Mathf.FloorToInt((4 * (lvl ^ 3)) / 5);
+            expTillNextLvl = Mathf.FloorToInt((4 * (lvl ^ 3)) / 2);
 
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using SelfQuest.UI;
 
 namespace SelfQuest
 {
@@ -26,6 +27,7 @@ namespace SelfQuest
         [SerializeField] CanvasGroup questLog;
         [SerializeField] QuestListItem questListItemPrefab;
         [SerializeField] Transform questListParent;
+        [SerializeField] Button editQuestLineButton;
 
 
         [Space(2)]
@@ -38,12 +40,16 @@ namespace SelfQuest
         [SerializeField] TextMeshProUGUI r_xp;
         [SerializeField] Image rewardIcon;
         [SerializeField] Button doneButton;
+        [SerializeField] Button editQuestButton;
+
 
         [Space(2)]
         [Header("New Quest UI")]
         [SerializeField] GameObject newLineUI;
         [SerializeField] GameObject newSubUI;
         [SerializeField] TMP_Dropdown skillDropDown;
+        [SerializeField] NewEditQuestLineUI editQuestLine;
+        [SerializeField] NewEditQuestUI editSubQuest;
 
         [Space(2)]
         [Header("Player Stats UI")]
@@ -72,16 +78,9 @@ namespace SelfQuest
 
         private void Start()
         {
-            QuestLine test = new QuestLine("Commence a Self Quest", QuestLine.QuestType.MAIN, "Myself");
-            List<Skill> skillz = new List<Skill>();
-            skillz.Add(new Skill("", Color.green));
-            test.Skill = skillz[0];
-            test.AddQuest(new Quest("fuck you", true, test));
-            test.ListOfQuests[0].reward = RewardManager.INSTANCE.CreateReward();
-            test.Reward = RewardManager.INSTANCE.CreateBigReward();
-            QuestManager.INSTANCE.AddQuest(test);
             PopulateQuests();
             PlayerStatsScreen(false);
+ 
         }
 
         #region Quest View
@@ -93,7 +92,7 @@ namespace SelfQuest
         public void PopulateQuests()
         {
             if (QuestManager.INSTANCE == null) return;
-            if (QuestManager.INSTANCE.selectedQuestLine == null) { CloseScroll();  return; }
+            if (QuestManager.INSTANCE.selectedQuestLine == null&& QuestManager.INSTANCE.pool.Count == 0) { CloseScroll();  return; }
 
             CloseQuestInfo();
             QuestLine l = QuestManager.INSTANCE.selectedQuestLine;
@@ -138,14 +137,16 @@ namespace SelfQuest
 
         public void OpenQuestInfo(Quest q)
         {
+            if (q == null) return;
             questLog.alpha = 0;
             questLog.interactable = questLog.blocksRaycasts = false;
-            questType.text = (q.isBonus ? "Normal" : "Bonus");
+ //           questType.text = (q.isBonus ? "Normal" : "Bonus");
             title.text = q.name;
             questInfoPanel.alpha = 1;
             questInfoPanel.blocksRaycasts = questInfoPanel.interactable = true;
             QuestManager.INSTANCE.chosenQuest = q;
             doneButton.onClick.AddListener(FinishUpQuest);
+            editQuestButton.onClick.AddListener(() => editSubQuest.SetQuest(q));
         }
 
         public void CloseQuestInfo()
@@ -154,6 +155,7 @@ namespace SelfQuest
             questLog.interactable = questLog.blocksRaycasts = true;
             questInfoPanel.alpha = 0;
             questInfoPanel.blocksRaycasts = questInfoPanel.interactable = false;
+            editQuestLineButton.onClick.AddListener(()=>editQuestLine.EditQuestLine());
         }
 
         public void OpenScroll()
@@ -311,7 +313,7 @@ namespace SelfQuest
                 go.SetText(s.Name, s.LVL.ToString());
                 go.transform.parent = skillListParent;
                 go.SetColor(s.SkillColor);
-                go.GetComponent<Button>().
+                go.GetComponent<Button>().onClick.AddListener(()=>editSkill.EditSkill(go.attachedIndex));
             }
         }
         #endregion
