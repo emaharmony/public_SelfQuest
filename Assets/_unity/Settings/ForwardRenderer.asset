@@ -53,7 +53,7 @@ MonoBehaviour:
   settings:
     layerMask:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 256
     Event: 450
     blitMat: {fileID: 2100000, guid: ef563c8e0bf6403458e1c495c1663abf, type: 2}
-    pixelDensity: 9
+    pixelDensity: 15

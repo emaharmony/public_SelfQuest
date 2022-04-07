@@ -16,7 +16,7 @@ namespace SelfQuest
         public void SetText(string nameS, string lvl)
         {
             name.text = nameS;
-            level.text = lvl;
+            level.text = "lvl. "  + lvl;
         }
 
         public void SetColor(Color c)

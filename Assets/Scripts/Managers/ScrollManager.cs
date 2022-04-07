@@ -244,10 +244,12 @@ namespace SelfQuest
         #endregion
 
         #region Player Stats 
-        public void OpenNewSkillMenu()
+        public void OpenNewSkillMenu(bool isNew)
         {
             newSkillWindow.SetActive(true);
             newSkillWindow.transform.SetAsLastSibling();
+            if (isNew) editSkill.ClearAllInfo();
+
         }
 
 
@@ -263,7 +265,7 @@ namespace SelfQuest
             PopulateSkillList();
             skillMenu.SetActive(true);
             skillMenu.transform.SetAsLastSibling();
-        }
+         }
 
         public void CloseSkillMenu() 
         {
@@ -312,6 +314,7 @@ namespace SelfQuest
                 go.attachedIndex = SkillManager.INSTANCE.pool.IndexOf(s);
                 go.SetText(s.Name, s.LVL.ToString());
                 go.transform.parent = skillListParent;
+                go.transform.localScale = Vector3.one * 2;
                 go.SetColor(s.SkillColor);
                 go.GetComponent<Button>().onClick.AddListener(()=>editSkill.EditSkill(go.attachedIndex));
             }

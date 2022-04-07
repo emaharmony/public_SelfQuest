@@ -33,7 +33,7 @@ namespace SelfQuest.UI
 
         public void EditSkill(int index) 
         {
-            ScrollManager.INSTANCE.OpenNewSkillMenu();
+            ScrollManager.INSTANCE.OpenNewSkillMenu(false);
             skill = SkillManager.INSTANCE.pool[index];
             skillName.text = skill.Name;
             skillColor = skill.SkillColor;

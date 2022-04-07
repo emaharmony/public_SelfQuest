@@ -32,8 +32,8 @@ namespace SelfQuest
         void LevelSkill() 
         {
             lvl++;
-            expTillNextLvl = Mathf.FloorToInt((4 * (lvl ^ 3)) / 2);
-
+            expTillNextLvl = Mathf.FloorToInt((100 * (lvl ^ 3)));
+            
         }
 
         public string Name { get { return skillName; } set { skillName = value; } }

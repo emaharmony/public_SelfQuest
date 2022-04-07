@@ -23,8 +23,10 @@ namespace SelfQuest
             Name = "";
             Giver = "";
             Qtype = QuestType.MAIN;
-            Reward = null;
             ListOfQuests = new List<Quest>();
+
+            if (RewardManager.INSTANCE != null)
+                Reward = RewardManager.INSTANCE.CreateReward();
         }
 
         public QuestLine(string n, QuestType t, string g)
@@ -33,6 +35,7 @@ namespace SelfQuest
             Giver = g;
             Qtype = t;
             ListOfQuests = new List<Quest>();
+            Reward = RewardManager.INSTANCE.CreateReward();
         }
 
         public void AddQuest(Quest newQ)

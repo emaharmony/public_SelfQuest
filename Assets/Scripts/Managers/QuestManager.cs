@@ -84,6 +84,7 @@ namespace SelfQuest
            ScrollManager.INSTANCE.PopulateQuests();
            chosenQuest.SetDone();
             SoundManager.INSTANCE.FinishQuest();
+            PrefManager.INSTANCE.SaveAllPrefs();
         }
 
         public void FinishQuestLine() 
