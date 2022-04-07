@@ -22,6 +22,7 @@ namespace SelfQuest
         const string PREF_QUESTLINE_SKILL = "QLINESkill", PREF_QUESTLINE_COUNT = "QLCount", PREF_QLNAME = "QLName", PREF_QLGIVER = "QLGiver", PREF_QCOUNT = "QCount", PREF_QNAME = "QName", PREF_QL_REWARD_GOLD = "QLRGOLD",
             PREF_QL_REWARD_EXP = "QLREXP", PREF_Q_REWARD_GOLD = "QRGold", PREF_Q_REWARD_EXP = "QREXP", PREF_QUESTLINE_QTYPE = "QLType";
 
+        bool _userDone = false, _skillDone = false, _questDone = false;
         void Awake() 
         {
             INSTANCE = this;
@@ -123,16 +124,16 @@ namespace SelfQuest
             }
         }
 
-        public void SaveAllPrefs() 
+        public IEnumerator SaveAllPrefs() 
         {
-            SaveUserPrefs();
-            SaveSkillPrefs();
-            SaveQuestPrefs();
+            while (!SaveUserPrefs()) yield return new WaitForEndOfFrame();
+            while (!SaveSkillPrefs()) yield return new WaitForEndOfFrame();
+            while(!SaveQuestPrefs()) yield return new WaitForEndOfFrame();
         }
 
-        public void SaveSkillPrefs()
+        public bool SaveSkillPrefs()
         {
-            if (skills == null) return;
+            if (skills == null) return false;
             PlayerPrefs.SetInt(PREF_SKILL_COUNT, skills.pool.Count);
             for (int i = 0; i < skills.pool.Count; i++)
             {
@@ -142,11 +143,13 @@ namespace SelfQuest
                 PlayerPrefs.SetString(PREF_SKILL_COLOR + i, ColorUtility.ToHtmlStringRGB(skills.pool[i].SkillColor)); // without alpha
 
             }
+
+            return true;
         }
 
-        public void SaveQuestPrefs() 
+        public bool SaveQuestPrefs() 
         {
-            if (quests == null) return;
+            if (quests == null) return false;
             PlayerPrefs.SetInt(PREF_QUESTLINE_COUNT, quests.pool.Count); 
             for (int i = 0; i < quests.pool.Count; i++)
             {
@@ -164,16 +167,20 @@ namespace SelfQuest
                     PlayerPrefs.SetInt(PREF_Q_REWARD_GOLD + "-" + i + "-" + j, quests.pool[i].ListOfQuests[j].reward.GOLD);
                 }
             }
+
+            return true;
         }
 
-        public void SaveUserPrefs() 
+        public bool SaveUserPrefs() 
         {
-            if (player == null) return;
+            if (player == null) return false;
             PlayerPrefs.SetInt(NEW_PLAYER, 1);
             PlayerPrefs.SetInt(PREF_LEVEL, player.overallLvl);
             PlayerPrefs.SetInt(PREF_GOLD, player.currGold);
             PlayerPrefs.SetInt(CURR_EXP_PREF, player.currExp);
             PlayerPrefs.SetString(PREF_NAME, player.playerName == null ? "" : player.playerName);
+
+            return true;
         }
 
        void OnApplicationQuit() => SaveAllPrefs();

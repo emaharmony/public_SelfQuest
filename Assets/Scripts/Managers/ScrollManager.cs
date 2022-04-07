@@ -219,6 +219,7 @@ namespace SelfQuest
 
         void FinishUpQuest()
         {
+            SoundManager.INSTANCE.FinishQuest();
             QuestManager.INSTANCE.FinishQuest();
         }
         public void TurnOnNewQuestLine()

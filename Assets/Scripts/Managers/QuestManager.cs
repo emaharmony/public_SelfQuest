@@ -28,16 +28,25 @@ namespace SelfQuest
             if (pool.Contains(newQ)) return;
             pool.Add(newQ);
 
+            StartCoroutine(PrefManager.INSTANCE.SaveAllPrefs());
+
         }
 
         public void RemoveQuest(QuestLine q)
         {
+            if (q == null || NoQuests()) return;
+
             pool.Remove(q);
+            StartCoroutine(PrefManager.INSTANCE.SaveAllPrefs());
+
         }
 
         public void RemoveQuest(int q)
         {
+            if (NoQuests() || q < 0) return;
             pool.Remove(pool[q]);
+            StartCoroutine(PrefManager.INSTANCE.SaveAllPrefs());
+
         }
 
         public void ChangeQuestLine(int dir)
@@ -78,23 +87,18 @@ namespace SelfQuest
         public void FinishQuest() 
         {
            if (chosenQuest.isDone) return;
-
-           PlayerManager.INSTANCE.GivePlayerRewards(pool[currentQuestLine].Skill, /*chosenQuest.secondarySkill,*/ chosenQuest.reward.EXP, chosenQuest.reward.GOLD);
+            PlayerManager.INSTANCE.GivePlayerRewards(pool[currentQuestLine].Skill, /*chosenQuest.secondarySkill,*/ chosenQuest.reward.EXP, chosenQuest.reward.GOLD);
            pool[currentQuestLine].ListOfQuests.Remove(chosenQuest);
            ScrollManager.INSTANCE.PopulateQuests();
            chosenQuest.SetDone();
-            SoundManager.INSTANCE.FinishQuest();
-            PrefManager.INSTANCE.SaveAllPrefs();
         }
 
         public void FinishQuestLine() 
         {
-           
+            SoundManager.INSTANCE.FinishQuest();
             PlayerManager.INSTANCE.GivePlayerRewards(pool[currentQuestLine].Skill, /*null,*/ pool[currentQuestLine].Reward.EXP, pool[currentQuestLine].Reward.GOLD);
             RemoveQuest(pool[currentQuestLine]);
             ScrollManager.INSTANCE.PopulateQuests();
-            SoundManager.INSTANCE.FinishQuest();
-
         }
     }
 

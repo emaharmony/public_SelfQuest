@@ -37,8 +37,9 @@ namespace SelfQuest
             currGold += gold;
             SkillManager.INSTANCE.LevelSkill(primarySkill, exp);
             if (currExp >= nextLvlEXP)
-                StartCoroutine(LevelUp());     
+                StartCoroutine(LevelUp());
             //if (secondarySkill != -1) SkillManager.INSTANCE.LevelSkill(secondarySkill, exp);
+            StartCoroutine(PrefManager.INSTANCE.SaveAllPrefs());
 
         }
 
@@ -51,11 +52,13 @@ namespace SelfQuest
             if(currExp >= nextLvlEXP)
                 StartCoroutine(LevelUp());
             //if (secondarySkill != null) secondarySkill.AddEXP(exp);
-
+            StartCoroutine(PrefManager.INSTANCE.SaveAllPrefs());
         }
+
         public void EditName(string s)
         {
             playerName = s;
+            PrefManager.INSTANCE.SaveUserPrefs();
         }
 
         public IEnumerator LevelUp()

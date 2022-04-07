@@ -110,7 +110,7 @@ namespace SelfQuest.UI
 
         public void ClearAllInfo() 
         {
-
+            chosenQuestLine = null;
             qname.text = "";
             giver.text = "";
             foreach (Transform t in subQuestButtons)
