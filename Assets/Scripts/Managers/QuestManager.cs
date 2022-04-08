@@ -98,6 +98,7 @@ namespace SelfQuest
             SoundManager.INSTANCE.FinishQuest();
             PlayerManager.INSTANCE.GivePlayerRewards(pool[currentQuestLine].Skill, /*null,*/ pool[currentQuestLine].Reward.EXP, pool[currentQuestLine].Reward.GOLD);
             RemoveQuest(pool[currentQuestLine]);
+            currentQuestLine = 0;
             ScrollManager.INSTANCE.PopulateQuests();
         }
     }

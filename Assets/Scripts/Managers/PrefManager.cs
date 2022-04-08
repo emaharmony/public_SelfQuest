@@ -34,18 +34,21 @@ namespace SelfQuest
 
         void Start() 
         {
-            LoadAllPrefs();
+           StartCoroutine( LoadAllPrefs());
         }
 
-        public void LoadAllPrefs()
+        public IEnumerator LoadAllPrefs()
         {
-            LoadSkillPrefs();
-            LoadUserPrefs();
-            LoadQuestPrefs();
+            while(!LoadSkillPrefs()) yield return null;
+            while(!LoadUserPrefs()) yield return null;
+            while(!LoadQuestPrefs()) yield return null;
+
         }
 
-        public void LoadQuestPrefs()
+        public bool LoadQuestPrefs()
         {
+            if (!_skillDone) return false;
+
             if (PlayerPrefs.GetInt(PREF_QUESTLINE_COUNT, -1) <= 0) 
             {
                 QuestLine test = new QuestLine("Commence a Self Quest", QuestLine.QuestType.MAIN, "Myself");
@@ -64,7 +67,7 @@ namespace SelfQuest
                     quests.pool.Add(new QuestLine());
                     quests.pool[i].Name = PlayerPrefs.GetString(PREF_QLNAME + i);
                     quests.pool[i].Giver = PlayerPrefs.GetString(PREF_QLGIVER + i);
-                    quests.pool[i].Skill = skills.pool[PlayerPrefs.GetInt(PREF_QUESTLINE_SKILL + i)];
+                    quests.pool[i].Skill = skills.pool[PlayerPrefs.GetInt(PREF_QUESTLINE_SKILL + i) < 0 ? 0 : PlayerPrefs.GetInt(PREF_QUESTLINE_SKILL + i)];
                     quests.pool[i].Qtype = (QuestLine.QuestType)PlayerPrefs.GetInt(PREF_QUESTLINE_QTYPE + i);
                     quests.pool[i].Reward = new Reward(PlayerPrefs.GetInt(PREF_QL_REWARD_EXP + i), PlayerPrefs.GetInt(PREF_QL_REWARD_EXP + i));
                     int count = PlayerPrefs.GetInt(PREF_QCOUNT + i);
@@ -78,10 +81,14 @@ namespace SelfQuest
                     quests.pool[i].ListOfQuests = qList;
                 }
             }
+            _questDone = true;
+
+            return true;
         }
 
-        public void LoadSkillPrefs()
+        public bool LoadSkillPrefs()
         {
+           
             //Get pool of added Skills;
             if (PlayerPrefs.GetInt(PREF_SKILL_COUNT, -1) <= 0)
             {
@@ -102,9 +109,12 @@ namespace SelfQuest
 
                 }
             }
+            _skillDone = true;
+
+            return true;
         }
 
-        public void LoadUserPrefs()
+        public bool LoadUserPrefs()
         {
             if (PlayerPrefs.GetInt(NEW_PLAYER, 0) == 0)
             {
@@ -122,6 +132,8 @@ namespace SelfQuest
                 player.currGold = PlayerPrefs.GetInt(PREF_GOLD);
                 player.playerName = PlayerPrefs.GetString(PREF_NAME);
             }
+            _userDone = true;
+            return true;
         }
 
         public IEnumerator SaveAllPrefs() 
@@ -133,7 +145,8 @@ namespace SelfQuest
 
         public bool SaveSkillPrefs()
         {
-            if (skills == null) return false;
+
+            if (skills == null || !_skillDone) return false;
             PlayerPrefs.SetInt(PREF_SKILL_COUNT, skills.pool.Count);
             for (int i = 0; i < skills.pool.Count; i++)
             {
@@ -149,7 +162,7 @@ namespace SelfQuest
 
         public bool SaveQuestPrefs() 
         {
-            if (quests == null) return false;
+            if (quests == null || !_questDone) return false;
             PlayerPrefs.SetInt(PREF_QUESTLINE_COUNT, quests.pool.Count); 
             for (int i = 0; i < quests.pool.Count; i++)
             {
@@ -173,7 +186,7 @@ namespace SelfQuest
 
         public bool SaveUserPrefs() 
         {
-            if (player == null) return false;
+            if (player == null || !_userDone) return false;
             PlayerPrefs.SetInt(NEW_PLAYER, 1);
             PlayerPrefs.SetInt(PREF_LEVEL, player.overallLvl);
             PlayerPrefs.SetInt(PREF_GOLD, player.currGold);
@@ -183,11 +196,11 @@ namespace SelfQuest
             return true;
         }
 
-       void OnApplicationQuit() => SaveAllPrefs();
+        void OnApplicationQuit() { StartCoroutine (SaveAllPrefs()); }
 
         private void OnApplicationFocus(bool focus)
         {
-           SaveAllPrefs();
+            StartCoroutine(SaveAllPrefs());
         }
     }
 }

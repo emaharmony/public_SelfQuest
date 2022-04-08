@@ -56,12 +56,19 @@ namespace SelfQuest.UI
 
         public void CreateQuest()
         {
-            making = new Quest(qname.text, isBonus, QuestManager.INSTANCE.GetQuestLine(ChosenQline));
-            making.reward = RewardManager.INSTANCE.CreateReward();
-            foreach (TMP_InputField io in checkListItems)
-                making.checklist.Add(io.text);
+            bool edit = false; 
+            if (making == null)
+                making = new Quest(qname.text, isBonus, QuestManager.INSTANCE.GetQuestLine(ChosenQline));
+            else 
+            {
+                edit = true;
+                making.SetName(qname.text);
+            }
+
+            //foreach (TMP_InputField io in checkListItems)
+            //    making.checklist.Add(io.text);
             ScrollManager.INSTANCE.OpenNewQuestLineUIMenu();
-            NewEditQuestLineUI.INSTANCE.AddNewSubQuest(making);
+            NewEditQuestLineUI.INSTANCE.AddNewSubQuest(making, edit);
             ClearAllInfo();
         }
 

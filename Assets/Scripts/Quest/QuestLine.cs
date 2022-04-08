@@ -41,7 +41,8 @@ namespace SelfQuest
         public void AddQuest(Quest newQ)
         {
             newQ.SetQLine(this);
-            ListOfQuests.Add(newQ);
+            if(!ListOfQuests.Contains(newQ))
+                ListOfQuests.Add(newQ);
         }
 
         public string Name;

@@ -155,7 +155,6 @@ namespace SelfQuest
             questLog.interactable = questLog.blocksRaycasts = true;
             questInfoPanel.alpha = 0;
             questInfoPanel.blocksRaycasts = questInfoPanel.interactable = false;
-            editQuestLineButton.onClick.AddListener(()=>editQuestLine.EditQuestLine());
         }
 
         public void OpenScroll()

@@ -23,6 +23,7 @@ namespace SelfQuest
 
         public void SetQuest(int i)
         {
+   
         }
 
         public void PrepQuestInfoScreen()

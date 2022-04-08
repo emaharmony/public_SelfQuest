@@ -40,7 +40,18 @@ namespace SelfQuest
         {
             questLine = ql;
         }
-        
+
+        public void SetName(string s)
+        {
+            name = s;
+        }
+
+        public void SetReward() 
+        {
+            reward = RewardManager.INSTANCE.CreateReward();
+
+        }
+
         public void SetDone() 
         {
             isDone = true;

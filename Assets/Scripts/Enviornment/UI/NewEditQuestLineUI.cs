@@ -12,9 +12,10 @@ namespace SelfQuest.UI
     {
         public static NewEditQuestLineUI INSTANCE { get; private set; }
         public TMP_InputField qname, giver;
-        int skillz;
+        public TMP_Dropdown skillDropDown;
+        int skillz = 0;
         [SerializeField] Transform subQuestParent;
-        [SerializeField] Button subQuestListPrefab;
+        [SerializeField] QuestListItem subQuestListPrefab;
         List<Transform> subQuestButtons = new List<Transform>();
         public int QuestType { get; set; }
 
@@ -29,11 +30,15 @@ namespace SelfQuest.UI
         {
             qname.text = chosenQuestLine.Name;
             giver.text = chosenQuestLine.Giver;
+            skillz = SkillManager.INSTANCE.pool.IndexOf(chosenQuestLine.Skill);
+            skillDropDown.SetValueWithoutNotify(skillz);
             for (int i = 0; i < chosenQuestLine.ListOfQuests.Count; i++)
             {
-                Button b = Instantiate(subQuestListPrefab, subQuestParent).GetComponent<Button>();
-                b.onClick.AddListener(() => EditSubQuest(i));
-                subQuestButtons.Add(b.transform);
+
+                QuestListItem q = Instantiate(subQuestListPrefab, subQuestParent) as QuestListItem;
+                q.GetComponent<Button>().onClick.AddListener(() => EditSubQuest(i));
+                subQuestButtons.Add(q.transform);
+                q.Questy = chosenQuestLine.ListOfQuests[i];
             }
         }
 
@@ -56,7 +61,7 @@ namespace SelfQuest.UI
                 chosenQuestLine.Qtype = (QuestLine.QuestType)QuestType;
                 chosenQuestLine.Giver = giver.text;
             }
-
+            chosenQuestLine.Skill = SkillManager.INSTANCE.pool[skillz];
             QuestManager.INSTANCE.AddQuest(chosenQuestLine);
             ScrollManager.INSTANCE.PopulateQuests();
             ClearAllInfo();
@@ -69,11 +74,14 @@ namespace SelfQuest.UI
             chosenQuestLine = QuestManager.INSTANCE.selectedQuestLine;
             qname.text = chosenQuestLine.Name;
             giver.text = chosenQuestLine.Giver;
+            skillz = SkillManager.INSTANCE.pool.IndexOf(chosenQuestLine.Skill);
+            skillDropDown.SetValueWithoutNotify(skillz);
             foreach (Quest q in chosenQuestLine.ListOfQuests) 
             {
-                Button b = Instantiate(subQuestListPrefab, subQuestParent).GetComponent<Button>();
-                b.onClick.AddListener(() => EditSubQuest(q));
-                subQuestButtons.Add(b.transform);
+                QuestListItem qlist = Instantiate(subQuestListPrefab, subQuestParent) as QuestListItem;
+                qlist.GetComponent<Button>().onClick.AddListener(() => EditSubQuest(q));
+                subQuestButtons.Add(qlist.transform);
+                qlist.Questy = q;
             }
         }
 
@@ -85,8 +93,9 @@ namespace SelfQuest.UI
             ScrollManager.INSTANCE.TurnOnNewQuest();
         }
 
-        public void AddNewSubQuest(Quest q)
+        public void AddNewSubQuest(Quest q, bool edit)
         {
+            if (edit) return;
             if (chosenQuestLine == null)
                 chosenQuestLine = new QuestLine();
 
@@ -113,11 +122,11 @@ namespace SelfQuest.UI
             chosenQuestLine = null;
             qname.text = "";
             giver.text = "";
-            foreach (Transform t in subQuestButtons)
+            foreach (Transform t in subQuestParent)
             {
                 Destroy(t.gameObject);
             }
-
+            subQuestButtons.Clear();
             subQuestButtons = new List<Transform>(); ;
         }
     }
