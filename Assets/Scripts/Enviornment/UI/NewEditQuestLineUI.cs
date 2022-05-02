@@ -105,6 +105,13 @@ namespace SelfQuest.UI
             chosenQuestLine.AddQuest(q);
         }
 
+        public void EditCurrentSubQuest()
+        {
+            NewEditQuestUI.INSTANCE.SetQuest(QuestManager.INSTANCE.chosenQuest);
+            ScrollManager.INSTANCE.TurnOnNewQuest();
+
+        }
+
         public void EditSubQuest(int i)
         {
             NewEditQuestUI.INSTANCE.SetQuest(chosenQuestLine.ListOfQuests[i]);

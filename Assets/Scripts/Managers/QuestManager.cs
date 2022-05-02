@@ -41,6 +41,18 @@ namespace SelfQuest
 
         }
 
+        public void RemoveCurrentQuestLine() 
+        {
+            RemoveQuest(currentQuestLine);
+            ScrollManager.INSTANCE.PopulateQuests();
+        }
+
+        public void RemoveCurrentQuest() 
+        {
+            pool[currentQuestLine].ListOfQuests.Remove(chosenQuest);
+            ScrollManager.INSTANCE.PopulateQuests();
+        }
+
         public void RemoveQuest(int q)
         {
             if (NoQuests() || q < 0) return;
@@ -53,8 +65,7 @@ namespace SelfQuest
         {
             ScrollManager.INSTANCE.CloseScroll(2f);
             currentQuestLine += (dir > 0 ? 1 : -1);
-            currentQuestLine %= pool.Count;
-
+            currentQuestLine = (currentQuestLine < 0 ? pool.Count - 1 : currentQuestLine % pool.Count);
             //populate Quest UI
             ScrollManager.INSTANCE.PopulateQuests();
             ScrollManager.INSTANCE.OpenScroll();
@@ -101,6 +112,7 @@ namespace SelfQuest
             currentQuestLine = 0;
             ScrollManager.INSTANCE.PopulateQuests();
         }
+
     }
 
 }

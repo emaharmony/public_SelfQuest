@@ -34,6 +34,11 @@ namespace SelfQuest.UI
 
         }
 
+        public void EditChosenQuest() 
+        {
+            SetQuest(QuestManager.INSTANCE.chosenQuest);
+        }
+
         public void AddNewCheckListItem() 
         {
             GameObject go = Instantiate(checkListPrefab, checkList);
