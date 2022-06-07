@@ -90,7 +90,9 @@ namespace SelfQuest.UI
             if (chosenQuestLine == null)
                 chosenQuestLine = new QuestLine();
 
+            NewEditQuestUI.INSTANCE.ClearAllInfo();
             ScrollManager.INSTANCE.TurnOnNewQuest();
+
         }
 
         public void AddNewSubQuest(Quest q, bool edit)
@@ -101,6 +103,7 @@ namespace SelfQuest.UI
 
             Button b = Instantiate(subQuestListPrefab, subQuestParent).GetComponent<Button>();
             b.onClick.AddListener(() => EditSubQuest(subQuestButtons.Count));
+            b.GetComponent<QuestListItem>().Questy = q;
             subQuestButtons.Add(b.transform);
             chosenQuestLine.AddQuest(q);
         }
