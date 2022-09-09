@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/QuestLineAlpha.unity
     guid: dc74065d9e4f7bf4da64f7bd240888b3
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: e342b85c823ffbf4e958cf72522be5d2,
+      type: 2}
+    com.unity.adaptiveperformance.samsung.android.provider_settings: {fileID: 11400000,
+      guid: a71d0775c57694649a8824becfe15360, type: 2}
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000,
+      guid: e5dfc886270eadb4da5191c1025d70d9, type: 2}

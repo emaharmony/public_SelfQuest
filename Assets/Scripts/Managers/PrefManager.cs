@@ -103,7 +103,6 @@ namespace SelfQuest
                     skills.pool.Add(new Skill("", Color.green));
                     skills.pool[i].Name = PlayerPrefs.GetString(PREF_SKILL_NAME + i);
                     skills.pool[i].EXP = PlayerPrefs.GetInt(PREF_SKILL_EXP + i);
-                    skills.pool[i].LVL = PlayerPrefs.GetInt(PREF_SKILL_LEVEL + i);
                     Color color; ColorUtility.TryParseHtmlString(PlayerPrefs.GetString(PREF_SKILL_COLOR), out color); // without alpha
                     skills.pool[i].SkillColor = color;
 
@@ -127,7 +126,6 @@ namespace SelfQuest
             else             //grab values from pref
             {
                 player.returningPlayer = PlayerPrefs.GetInt(NEW_PLAYER);
-                player.overallLvl = PlayerPrefs.GetInt(PREF_LEVEL);
                 player.currExp = PlayerPrefs.GetInt(CURR_EXP_PREF);
                 player.currGold = PlayerPrefs.GetInt(PREF_GOLD);
                 player.playerName = PlayerPrefs.GetString(PREF_NAME);
@@ -188,7 +186,6 @@ namespace SelfQuest
         {
             if (player == null || !_userDone) return false;
             PlayerPrefs.SetInt(NEW_PLAYER, 1);
-            PlayerPrefs.SetInt(PREF_LEVEL, player.overallLvl);
             PlayerPrefs.SetInt(PREF_GOLD, player.currGold);
             PlayerPrefs.SetInt(CURR_EXP_PREF, player.currExp);
             PlayerPrefs.SetString(PREF_NAME, player.playerName == null ? "" : player.playerName);

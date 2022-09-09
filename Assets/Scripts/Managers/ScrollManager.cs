@@ -69,6 +69,10 @@ namespace SelfQuest
         [SerializeField] GameObject newSkillWindow;
         [SerializeField] NewEditSkillUI editSkill;
 
+        [Space(2)]
+        [Header("Settings")]
+        [SerializeField] GameObject settingsMenu;
+        
 
         private void Awake()
         {
@@ -81,6 +85,20 @@ namespace SelfQuest
             PopulateQuests();
             PlayerStatsScreen(false);
  
+        }
+
+        public void ShowBackground(bool b)
+        {
+            if (b)
+            {
+                CloseScroll();
+            }
+            else 
+            {
+                OpenQuestList();
+            }
+
+
         }
 
         #region Quest View
@@ -262,6 +280,7 @@ namespace SelfQuest
         public void OpenSkillMenu() 
         {
             overallStats.SetActive(false);
+            
             PopulateSkillList();
             skillMenu.SetActive(true);
             skillMenu.transform.SetAsLastSibling();
@@ -279,11 +298,24 @@ namespace SelfQuest
             playerStatWindow.SetActive(isStatsOpen);
             CloseNewSkillMenu();
             CloseSkillMenu();
+            Settings(false);
             overAllExp.text = PlayerManager.INSTANCE.currExp.ToString();
             level.text = PlayerManager.INSTANCE.overallLvl.ToString();
             playerName.text = PlayerManager.INSTANCE.playerName;
             gold.text = PlayerManager.INSTANCE.currGold.ToString();
             playerStatWindow.transform.SetAsLastSibling();
+        }
+
+        public void Settings(bool b) 
+        {
+            if (b)
+            {
+                settingsMenu.transform.SetAsLastSibling();
+                PlayerStatsScreen(false);
+            }
+
+            settingsMenu.SetActive(b);
+
         }
 
         public void PlayerStatsScreen(bool b)
@@ -292,6 +324,7 @@ namespace SelfQuest
             playerStatWindow.SetActive(isStatsOpen);
             CloseNewSkillMenu();
             CloseSkillMenu();
+            Settings(false);
             overAllExp.text = PlayerManager.INSTANCE.currExp.ToString();
             level.text = PlayerManager.INSTANCE.overallLvl.ToString();
             playerName.text = PlayerManager.INSTANCE.playerName;

@@ -9,10 +9,12 @@ namespace SelfQuest
     /// </summary>
     public class PlayerManager : MonoBehaviour
     {
+        int _exp = 0; 
+
         public static PlayerManager INSTANCE { get; private set; }
         public string playerName;
         public int overallLvl;
-        public int currExp;
+        public int currExp { get { return _exp; }  set { _exp = 0; AddEXP(value); } }
         public int nextLvlEXP;
         public int currGold;
         public int returningPlayer;
@@ -46,11 +48,10 @@ namespace SelfQuest
         public void GivePlayerRewards(Skill primarySkill,/* Skill secondarySkill,*/ int exp, int gold)
         {
             Debug.Log("Rewards: gold ->" + gold + " exp -> " + exp);
-            currExp += exp;
             currGold += gold;
             primarySkill.AddEXP(exp);
-            if(currExp >= nextLvlEXP)
-                StartCoroutine(LevelUp());
+            AddEXP(exp);
+            
             //if (secondarySkill != null) secondarySkill.AddEXP(exp);
             StartCoroutine(PrefManager.INSTANCE.SaveAllPrefs());
         }
@@ -61,12 +62,18 @@ namespace SelfQuest
             PrefManager.INSTANCE.SaveUserPrefs();
         }
 
+        void AddEXP(int exp)
+        {
+            _exp += exp;
+            if (_exp >= nextLvlEXP)
+                StartCoroutine(LevelUp());
+        }
         public IEnumerator LevelUp()
         {
             while (currExp >= nextLvlEXP)
             {
                 overallLvl++;
-                nextLvlEXP = 100 * (overallLvl ^ 2) - (50 * overallLvl);
+                nextLvlEXP = 1000 * (overallLvl ^ 2) - (50 * overallLvl);
                 yield return null;
             }
 

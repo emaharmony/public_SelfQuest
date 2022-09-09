@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Generic Tree Leaves01
-  m_Shader: {fileID: 4800000, guid: 0f4122b9a743b744abe2fb6a0a88868b, type: 3}
+  m_Shader: {fileID: 10701, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: EFFECT_BUMP GEOM_TYPE_LEAF _ALPHATEST_ON
   m_LightmapFlags: 5
   m_EnableInstancingVariants: 0
@@ -63,6 +63,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _BumpScale: 1
     - _Cull: 0
@@ -127,6 +128,7 @@ Material:
     - _TreeSize1: {r: 0, g: 0, b: 0, a: 0}
     - _TreeSize2: {r: 0, g: 0, b: 0, a: 0}
     - _TreeSize3: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
 --- !u!114 &3492580756510016178
 MonoBehaviour:
   m_ObjectHideFlags: 11
