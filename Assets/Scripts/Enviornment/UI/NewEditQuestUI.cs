@@ -11,9 +11,10 @@ namespace SelfQuest.UI
         public static NewEditQuestUI INSTANCE { get; private set; }
 
         [SerializeField] Toggle isBonus;
-        [SerializeField] TMP_Dropdown qLine;
+        [SerializeField] TMP_Dropdown numOfComplete;
         [SerializeField] TMP_Dropdown skill;
         [SerializeField] TMP_InputField qname;
+        [SerializeField] TMP_InputField qDescription;
         [SerializeField] Transform checkList;
         [SerializeField] GameObject checkListPrefab;
 
@@ -30,7 +31,7 @@ namespace SelfQuest.UI
 
         public void MakeNewQuest(QuestLine ql)
         {
-            making = new Quest(qname.text, isBonus, ql);
+            making = new Quest(qname.text, qDescription.text, isBonus, ql, numOfComplete.value + 1);
 
         }
 
@@ -54,7 +55,7 @@ namespace SelfQuest.UI
             }
 
             QuestLine questLine = QuestManager.INSTANCE.GetQuestLine(i);
-            making = new Quest(qname.text, isBonus, questLine);
+            making = new Quest(qname.text, qDescription.text, isBonus, questLine, numOfComplete.value + 1); ;
            // making.secondarySkill = SkillManager.INSTANCE.GetSkill(ChosenSkill);
             
         }
@@ -63,11 +64,12 @@ namespace SelfQuest.UI
         {
             bool edit = false; 
             if (making == null)
-                making = new Quest(qname.text, isBonus, QuestManager.INSTANCE.GetQuestLine(ChosenQline));
+                making = new Quest(qname.text, qDescription.text, isBonus, QuestManager.INSTANCE.GetQuestLine(ChosenQline), numOfComplete.value + 1);
             else 
             {
                 edit = true;
                 making.SetName(qname.text);
+                making.description = qDescription.text;
             }
 
             //foreach (TMP_InputField io in checkListItems)
@@ -82,6 +84,7 @@ namespace SelfQuest.UI
             making = q;
             qname.text = q.name;
             isBonus.isOn = q.isBonus;
+
         }
 
         public void ClearAllInfo() 
@@ -89,6 +92,9 @@ namespace SelfQuest.UI
             making = null;
             qname.text = "";
             isBonus.isOn = false;
+            numOfComplete.value = 0;
+            qDescription.text = "";
+            
         }
 
     }

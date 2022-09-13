@@ -92,7 +92,8 @@ namespace SelfQuest
 
         public void PrevQuestLine()
         {
-            currentQuestLine = Mathf.Abs( (currentQuestLine - 1) % pool.Count);
+
+            currentQuestLine = currentQuestLine == 0 ? pool.Count - 1 : currentQuestLine-1;
             ScrollManager.INSTANCE.PopulateQuests();
         }
         public void FinishQuest() 
@@ -113,6 +114,12 @@ namespace SelfQuest
             ScrollManager.INSTANCE.PopulateQuests();
         }
 
+        public void AdjustTally(bool neg) 
+        {
+            chosenQuest.currentNum += (neg ? -1 : 1);
+            chosenQuest.currentNum = (chosenQuest.currentNum < 0 ? 0 : (chosenQuest.currentNum > chosenQuest.numberOfcomplete ? chosenQuest.numberOfcomplete : chosenQuest.currentNum));
+            ScrollManager.INSTANCE.UpdateQuestCounter(chosenQuest);
+        }
     }
 
 }

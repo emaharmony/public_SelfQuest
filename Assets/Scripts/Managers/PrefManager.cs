@@ -20,8 +20,8 @@ namespace SelfQuest
         //QuestPrefs
 
         const string PREF_QUESTLINE_SKILL = "QLINESkill", PREF_QUESTLINE_COUNT = "QLCount", PREF_QLNAME = "QLName", PREF_QLGIVER = "QLGiver", PREF_QCOUNT = "QCount", PREF_QNAME = "QName", PREF_QL_REWARD_GOLD = "QLRGOLD",
-            PREF_QL_REWARD_EXP = "QLREXP", PREF_Q_REWARD_GOLD = "QRGold", PREF_Q_REWARD_EXP = "QREXP", PREF_QUESTLINE_QTYPE = "QLType";
-
+            PREF_QL_REWARD_EXP = "QLREXP", PREF_Q_REWARD_GOLD = "QRGold", PREF_Q_REWARD_EXP = "QREXP", PREF_QUESTLINE_QTYPE = "QLType", PREF_QDescr="QDescr", PREF_QMAX = "QMax", PREF_QCURR="QCurr";
+        
         bool _userDone = false, _skillDone = false, _questDone = false;
         void Awake() 
         {
@@ -53,11 +53,11 @@ namespace SelfQuest
             {
                 QuestLine test = new QuestLine("Commence a Self Quest", QuestLine.QuestType.MAIN, "Myself");
                 test.Skill = skills.pool[0];
-                test.AddQuest(new Quest("Look At this Quest", true, test));
-                test.AddQuest(new Quest("Touch Blue Flag", true, test));
-                test.AddQuest(new Quest("Create New Quest Line", true, test));
-                test.AddQuest(new Quest("Make New Skill", true, test));
-                test.AddQuest(new Quest("Finish Quest Line", true, test));
+                test.AddQuest(new Quest("Look At this Quest", "IF you can read it you've done it! Now just click the check mark at the bottom to complete the Quest.", true, test));
+                test.AddQuest(new Quest("Touch Blue Flag", "Look to the top left of your phone next to the title of the quest line. This is your Stats screen, you will find your level, gold, skills and the settings in this menu.", true, test));
+                test.AddQuest(new Quest("Make New Skill", "Going back to the blue Flag there is a button at the bottom left of the menu. This is where you will find your skill menu. Click the Gauntlet to ctreate your own Skill.", true, test));
+                test.AddQuest(new Quest("Create New Quest Line", "Now on the other side of the Title there is a '+' sign. Click it to create a new QuestLine. Within the QuestLine menu there is a yellow '+' that is used to create subquests."  , true, test));
+                test.AddQuest(new Quest("Finish Quest Line", "You've got the very basics done! When youre down go to the Scroll Menu make sure you are at the correct quest line and click the chest at the bottom of the screen to obtain your reward! Happy Questing! :)", true, test));
                 QuestManager.INSTANCE.AddQuest(test);
             } else{
                 quests.pool = new List<QuestLine>();
@@ -74,7 +74,7 @@ namespace SelfQuest
                     List<Quest> qList = new List<Quest>();
                     for (int j = 0; j < count; j++)
                     {
-                        qList.Add( new Quest(PlayerPrefs.GetString(PREF_QNAME + "-" + i + "-" + j), false, quests.pool[i]));
+                        qList.Add( new Quest(PlayerPrefs.GetString(PREF_QNAME + "-" + i + "-" + j), PlayerPrefs.GetString(PREF_QDescr + "-" + i + "-" + j), false, quests.pool[i], PlayerPrefs.GetInt(PREF_QMAX + "-" + i + "-" + j), PlayerPrefs.GetInt(PREF_QCURR + "-" + i + "-" + j)));
                         qList[j].reward = new Reward(PlayerPrefs.GetInt(PREF_Q_REWARD_EXP + "-" + i + "-" + j), PlayerPrefs.GetInt(PREF_Q_REWARD_GOLD + "-" + i + "-" + j));
                     }
 
@@ -174,6 +174,9 @@ namespace SelfQuest
                 for (int j = 0; j < quests.pool[i].ListOfQuests.Count; j++)
                 {
                     PlayerPrefs.SetString((PREF_QNAME + "-" + i + "-" + j), quests.pool[i].ListOfQuests[j].name);
+                    PlayerPrefs.SetString((PREF_QDescr + "-" + i + "-" + j), quests.pool[i].ListOfQuests[j].description);
+                    PlayerPrefs.SetInt((PREF_QMAX + "-" + i + "-" + j), quests.pool[i].ListOfQuests[j].numberOfcomplete);
+                    PlayerPrefs.SetInt((PREF_QCURR + "-" + i + "-" + j), quests.pool[i].ListOfQuests[j].currentNum);
                     PlayerPrefs.SetInt(PREF_Q_REWARD_EXP + "-" + i + "-" + j, quests.pool[i].ListOfQuests[j].reward.EXP);
                     PlayerPrefs.SetInt(PREF_Q_REWARD_GOLD + "-" + i + "-" + j, quests.pool[i].ListOfQuests[j].reward.GOLD);
                 }

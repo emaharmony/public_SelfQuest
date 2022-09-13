@@ -8,7 +8,7 @@ namespace SelfQuest
     public class Quest
     {
         public string name { get; private set; }
-        public List<string> checklist { get; set; }
+        public string description { get; set; }
 
         public bool isBonus = false;
 //        public Skill secondarySkill { get; set; }
@@ -17,22 +17,39 @@ namespace SelfQuest
 
         public bool isDone = false;
 
-        public Quest(string n, bool b, QuestLine qline)
+        public int numberOfcomplete { get; set; }
+        public int currentNum { get; set;  }
+
+        public Quest(string n, string d, bool b, QuestLine qline)
         {
             name = n;
             isBonus = b;
             SetQLine(qline);
            // secondarySkill = null;
-            checklist = new List<string>();
-            reward = RewardManager.INSTANCE.CreateReward(); 
+            description = d;
+            reward = RewardManager.INSTANCE.CreateReward();
+            currentNum = 0;
+            numberOfcomplete = 1;
         }
-        public Quest(string n, bool b, QuestLine qline, int ind)
+        public Quest(string n, string d, bool b, QuestLine qline, int cum)
         {
             name = n;
             isBonus = b;
             SetQLine(qline);
-           // secondarySkill = null;
-            checklist = new List<string>();
+            numberOfcomplete = cum;
+            currentNum = 0;
+            description = d;
+            reward = RewardManager.INSTANCE.CreateReward();
+        }
+
+        public Quest(string n, string d, bool b, QuestLine qline, int cum, int curr)
+        {
+            name = n;
+            isBonus = b;
+            SetQLine(qline);
+            numberOfcomplete = cum;
+            currentNum = curr;
+            description = d;
             reward = RewardManager.INSTANCE.CreateReward();
         }
 

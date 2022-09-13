@@ -34,6 +34,9 @@ namespace SelfQuest
         [Header("Quest Info UI")]
         [SerializeField] CanvasGroup questInfoPanel; 
         [SerializeField] TextMeshProUGUI title;
+        [SerializeField] TextMeshProUGUI description;
+        [SerializeField] TextMeshProUGUI currmaxAttempts;
+        [SerializeField] Image completeBar;
         [SerializeField] Transform checkListParent;
         [SerializeField] TextMeshProUGUI questType;
         [SerializeField] TextMeshProUGUI r_gold;
@@ -158,13 +161,23 @@ namespace SelfQuest
             if (q == null) return;
             questLog.alpha = 0;
             questLog.interactable = questLog.blocksRaycasts = false;
- //           questType.text = (q.isBonus ? "Normal" : "Bonus");
+            //           questType.text = (q.isBonus ? "Normal" : "Bonus");
+            QuestManager.INSTANCE.chosenQuest = q;
             title.text = q.name;
+            description.text = q.description;
+            completeBar.transform.parent.gameObject.SetActive(q.numberOfcomplete > 1);
+            UpdateQuestCounter(q);
             questInfoPanel.alpha = 1;
             questInfoPanel.blocksRaycasts = questInfoPanel.interactable = true;
-            QuestManager.INSTANCE.chosenQuest = q;
             doneButton.onClick.AddListener(FinishUpQuest);
             editQuestButton.onClick.AddListener(() => editSubQuest.SetQuest(q));
+        }
+
+        public void UpdateQuestCounter(Quest q) 
+        {
+            currmaxAttempts.text = q.currentNum + "/" + q.numberOfcomplete;
+            completeBar.fillAmount = (q.numberOfcomplete > 0 ? ((q.currentNum + 0.0f) /( q.numberOfcomplete+0.0f)) : 0);
+
         }
 
         public void CloseQuestInfo()
