@@ -28,7 +28,7 @@ public class PulsateLight : MonoBehaviour
     {
 
         if (doRange)
-            light.range = PingPong(light.range, maxRange, minRange); ;
+            light.range = PingPong(light.range, maxRange, minRange);
 
         if (doIntensity)
             light.intensity = PingPong(light.intensity, maxIntensity, minIntensity);

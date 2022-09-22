@@ -53,7 +53,7 @@ namespace SelfQuest
             {
                 QuestLine test = new QuestLine("Commence a Self Quest", QuestLine.QuestType.MAIN, "Myself");
                 test.Skill = skills.pool[0];
-                test.AddQuest(new Quest("Look At this Quest", "IF you can read it you've done it! Now just click the check mark at the bottom to complete the Quest.", true, test));
+                test.AddQuest(new Quest("Look At this Quest", "IF you can read it you've done it! Now just click the 'Done' button at the bottom to complete the Quest.", true, test));
                 test.AddQuest(new Quest("Touch Blue Flag", "Look to the top left of your phone next to the title of the quest line. This is your Stats screen, you will find your level, gold, skills and the settings in this menu.", true, test));
                 test.AddQuest(new Quest("Make New Skill", "Going back to the blue Flag there is a button at the bottom left of the menu. This is where you will find your skill menu. Click the Gauntlet to ctreate your own Skill.", true, test));
                 test.AddQuest(new Quest("Create New Quest Line", "Now on the other side of the Title there is a '+' sign. Click it to create a new QuestLine. Within the QuestLine menu there is a yellow '+' that is used to create subquests."  , true, test));
