@@ -21,7 +21,8 @@ namespace SelfQuest
 
         const string PREF_QUESTLINE_SKILL = "QLINESkill", PREF_QUESTLINE_COUNT = "QLCount", PREF_QLNAME = "QLName", PREF_QLGIVER = "QLGiver", PREF_QCOUNT = "QCount", PREF_QNAME = "QName", PREF_QL_REWARD_GOLD = "QLRGOLD",
             PREF_QL_REWARD_EXP = "QLREXP", PREF_Q_REWARD_GOLD = "QRGold", PREF_Q_REWARD_EXP = "QREXP", PREF_QUESTLINE_QTYPE = "QLType", PREF_QDescr="QDescr", PREF_QMAX = "QMax", PREF_QCURR="QCurr";
-        
+
+        const string SETTINGS_NOTIFICATION = "SET_NOTI";
         bool _userDone = false, _skillDone = false, _questDone = false;
         void Awake() 
         {
@@ -42,6 +43,7 @@ namespace SelfQuest
             while(!LoadSkillPrefs()) yield return null;
             while(!LoadUserPrefs()) yield return null;
             while(!LoadQuestPrefs()) yield return null;
+            NotificationManager.INSTANCE.hours = PlayerPrefs.GetInt(SETTINGS_NOTIFICATION);
 
         }
 
@@ -103,9 +105,9 @@ namespace SelfQuest
                     skills.pool.Add(new Skill("", Color.green));
                     skills.pool[i].Name = PlayerPrefs.GetString(PREF_SKILL_NAME + i);
                     skills.pool[i].EXP = PlayerPrefs.GetInt(PREF_SKILL_EXP + i);
-                    Color color; ColorUtility.TryParseHtmlString(PlayerPrefs.GetString(PREF_SKILL_COLOR), out color); // without alpha
+                    Color color;
+                    ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(PREF_SKILL_COLOR + i), out color);
                     skills.pool[i].SkillColor = color;
-
                 }
             }
             _skillDone = true;
@@ -139,6 +141,7 @@ namespace SelfQuest
             while (!SaveUserPrefs()) yield return new WaitForEndOfFrame();
             while (!SaveSkillPrefs()) yield return new WaitForEndOfFrame();
             while(!SaveQuestPrefs()) yield return new WaitForEndOfFrame();
+            PlayerPrefs.SetInt(SETTINGS_NOTIFICATION, NotificationManager.INSTANCE.hours);
         }
 
         public bool SaveSkillPrefs()
@@ -152,7 +155,6 @@ namespace SelfQuest
                 PlayerPrefs.SetInt(PREF_SKILL_EXP + i, skills.pool[i].EXP);
                 PlayerPrefs.SetInt(PREF_SKILL_LEVEL + i, skills.pool[i].LVL);
                 PlayerPrefs.SetString(PREF_SKILL_COLOR + i, ColorUtility.ToHtmlStringRGB(skills.pool[i].SkillColor)); // without alpha
-
             }
 
             return true;
@@ -197,6 +199,7 @@ namespace SelfQuest
         }
 
         void OnApplicationQuit() { StartCoroutine (SaveAllPrefs()); }
+
 
         private void OnApplicationFocus(bool focus)
         {

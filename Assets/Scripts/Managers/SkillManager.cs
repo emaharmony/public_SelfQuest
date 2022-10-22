@@ -24,6 +24,7 @@ namespace SelfQuest
         public void AddSkill(Skill s)
         {
             pool.Add(s);
+            PrefManager.INSTANCE.SaveSkillPrefs();
         }
 
         public Skill GetSkill(int i)
@@ -31,14 +32,24 @@ namespace SelfQuest
             return pool[i];
         }
 
+        public void RemoveSkill(int i) 
+        {
+            if (i < 0) return;
+            pool.Remove(pool[i]);
+            PrefManager.INSTANCE.SaveSkillPrefs();
+
+        }
+
         public void LevelSkill(int index, int exp) 
         {
             pool[index].AddEXP(exp);
+            PrefManager.INSTANCE.SaveSkillPrefs();
         }
 
         public void LevelSkill(Skill index, int exp)
         {
             index.AddEXP(exp);
+            PrefManager.INSTANCE.SaveSkillPrefs();
         }
         public void UpdateUI() 
         {

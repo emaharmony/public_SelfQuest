@@ -9,6 +9,9 @@ public class SoundManager : MonoBehaviour
     [SerializeField] AudioSource sfx, bgm;
     [SerializeField] AudioClip questComplete, music;
     [SerializeField] TMPro.TMP_Text text;
+    [SerializeField] AudioClip morn, evening, night, lateNight;
+
+    public bool musicON = false;
 
     private void Awake()
     {
@@ -20,8 +23,7 @@ public class SoundManager : MonoBehaviour
         sfx.loop = false;
         sfx.playOnAwake = false;
         sfx.volume = 0.2f;
-        bgm.clip = music;
-        bgm.volume = 0.05f;
+        bgm.volume = 0.5f;
         bgm.loop = true;
         bgm.playOnAwake = true;
     }
@@ -35,5 +37,33 @@ public class SoundManager : MonoBehaviour
     {
         sfx.volume = bgm.volume = f/10;
         text.text = f + "";
+    }
+    public void Morning()
+    {
+        musicON = true;
+        bgm.clip = morn;
+        bgm.Play();
+    }
+
+    public void Evening()
+    {
+        musicON = true;
+
+        bgm.clip = evening;
+        bgm.Play();
+    }
+
+    public void Night()
+    {
+        musicON = true;
+        bgm.clip = night;
+        bgm.Play();
+    }
+
+    public void LateNight()
+    {
+        musicON = true;
+        bgm.clip = lateNight;
+        bgm.Play();
     }
 }

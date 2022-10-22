@@ -96,16 +96,16 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Rotation: 40.218742
+    - _Rotation: 131.99135
     - _SrcBlend: 1
     - _SunDisk: 2
     - _SunSize: 0.732
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.3924528, g: 0.8152387, b: 0.9811321, a: 1}
+    - _Color: {r: 0.85882354, g: 0.49019608, b: 0.7019608, a: 0.7882353}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _GroundColor: {r: 0.369, g: 0.349, b: 0.341, a: 1}
     - _SkyTint: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    - _Tint: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _Tint: {r: 0.7924528, g: 0.48892844, b: 0.48892844, a: 0.5}
   m_BuildTextureStacks: []

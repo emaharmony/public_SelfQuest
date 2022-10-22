@@ -1,30 +1,42 @@
-Fantasy Skybox contains 28 skyboxes from 7 different designs, demo scene and script which helps you quickly add the colourful skybox to your scene. It is easy to use and modify.
+ï»¿------------------------------------
+Fantasy Skybox FREE 1.6.0
+------------------------------------
 
-Special plus, this package comes with GUI animator FREE that lets you easily animate UI objects like a professional.
+	Fantasy Skybox FREE is ready-to-use skyboxes for Unity. It contains 50 cubemap and 32 panoramic skyboxes.
 
-Features: 
+	This asset is free version of Fantasy Skybox.
 
-	• Twenty eight skyboxes from 7 different designs.
-	• 1024x1024 texture for each side of skybox.
-	• Sunny/night skyboxes.
-	• Demo scene and script.
-	• Light & render settings guide for each skybox.
-	• Mobile friendly.
+	Features:
 
-	• Unity 5.0.1 or higher compatible.
+		â€¢ 40 low-quality cubemaps skyboxes.
+		â€¢ 32 low-quality panoramic skyboxes.
+		â€¢ Sun/sunless and moon/moonless.
+		â€¢ Day, night, rainy snowy, sunrise, sunset.
 
-Note:
-	• GUI Animator FREE is limited version of GUI Animator for Unity UI.
-	• GUI Animator FREE always shows "GUI Animator FREE" message at upper left corner of screen in Unity build player.
+	Instructions:
 
-Web demo:
-	http://ge-team.com/pages/unity-3d/first-sky-sunny-v-1-0/
+		1. Import the asset.
+		2. Open your scene or the any demo scene.
+		3. Select the Camera then set the Clear Flags to the Skybox mode.
+		4. On top menu, select Window -> Rendering -> Lighting. The Lighting dialog appears.
+		5. On Lighting dialog, select Environment tab.
+		6. Change the Skybox Material field in the Environment tab by selecting a material in Panoramics folder for panoramic skybox or in Cubemaps folder for cubemap skybox.
 
+	Available on Unity Asset Store:
 
-- - -- - -- - -- - -- - -- - -- - -- - -- - -- - -- - -- - -- - -- - -- - -- - -- - -- - -- - -- - -
+		Fantasy Skybox
+		https://assetstore.unity.com/packages/2d/textures-materials/sky/fantasy-skybox-18216
 
-Please direct any bugs/comments/suggestions to support e-mail (geteamdev@gmail.com)
+		Fantasy Skybox FREE
+		https://assetstore.unity.com/packages/2d/textures-materials/sky/fantasy-skybox-free-18353
 
-Gold Experience Team
-www.ge-team.com
-geteamdev@gmail.com
+	YouTube Channel:
+
+		â€¢ https://www.youtube.com/channel/UCj36vbkGOU0VUukBCLGQN5g
+
+	Website:
+
+		https://render-knight.com/
+
+	Thank you for your support,
+	renderknight.uas@gmail.com

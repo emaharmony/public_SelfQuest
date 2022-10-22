@@ -18,8 +18,11 @@ namespace SelfQuest
         public int nextLvlEXP;
         public int currGold;
         public int returningPlayer;
-        
-        
+
+        bool _euaAccepted = true;
+
+
+
         private void Awake()
         {
             INSTANCE = this;
@@ -41,7 +44,7 @@ namespace SelfQuest
             if (currExp >= nextLvlEXP)
                 StartCoroutine(LevelUp());
             //if (secondarySkill != -1) SkillManager.INSTANCE.LevelSkill(secondarySkill, exp);
-            StartCoroutine(PrefManager.INSTANCE.SaveAllPrefs());
+            PrefManager.INSTANCE.SaveUserPrefs();
 
         }
 
@@ -51,9 +54,10 @@ namespace SelfQuest
             currGold += gold;
             primarySkill.AddEXP(exp);
             AddEXP(exp);
-            
+
             //if (secondarySkill != null) secondarySkill.AddEXP(exp);
-            StartCoroutine(PrefManager.INSTANCE.SaveAllPrefs());
+            PrefManager.INSTANCE.SaveUserPrefs();
+
         }
 
         public void EditName(string s)

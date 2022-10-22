@@ -13,6 +13,7 @@ namespace SelfQuest.UI
 
         Skill skill;
 
+        int ind = -1;
 
         public void CreateNewSkill()
         {
@@ -26,17 +27,27 @@ namespace SelfQuest.UI
             {
                 skill.Name = skillName.text;
                 skill.SkillColor = skillColor;
+                
             }
 
+            PrefManager.INSTANCE.SaveSkillPrefs();
             ScrollManager.INSTANCE.CloseNewSkillMenu();
         }
 
         public void EditSkill(int index) 
         {
+            ind = index;
+            Debug.Log(ind);
             ScrollManager.INSTANCE.OpenNewSkillMenu(false);
             skill = SkillManager.INSTANCE.pool[index];
             skillName.text = skill.Name;
             skillColor = skill.SkillColor;
+        }
+
+        public void DeleteSkill()
+        {
+            if(ind >= 0)
+                SkillManager.INSTANCE.RemoveSkill(ind);
         }
 
         public void ChangeColor(Color c) 

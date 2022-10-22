@@ -28,7 +28,7 @@ namespace SelfQuest
             if (pool.Contains(newQ)) return;
             pool.Add(newQ);
 
-            StartCoroutine(PrefManager.INSTANCE.SaveAllPrefs());
+            PrefManager.INSTANCE.SaveQuestPrefs();
 
         }
 
@@ -37,19 +37,21 @@ namespace SelfQuest
             if (q == null || NoQuests()) return;
 
             pool.Remove(q);
-            StartCoroutine(PrefManager.INSTANCE.SaveAllPrefs());
-
+            NextQuestLine();
+            PrefManager.INSTANCE.SaveQuestPrefs(); ;
         }
 
         public void RemoveCurrentQuestLine() 
         {
             RemoveQuest(currentQuestLine);
+            NextQuestLine();
             ScrollManager.INSTANCE.PopulateQuests();
         }
 
         public void RemoveCurrentQuest() 
         {
             pool[currentQuestLine].ListOfQuests.Remove(chosenQuest);
+            NextQuestLine();
             ScrollManager.INSTANCE.PopulateQuests();
         }
 
@@ -57,7 +59,8 @@ namespace SelfQuest
         {
             if (NoQuests() || q < 0) return;
             pool.Remove(pool[q]);
-            StartCoroutine(PrefManager.INSTANCE.SaveAllPrefs());
+            NextQuestLine();
+            PrefManager.INSTANCE.SaveQuestPrefs();
 
         }
 
@@ -86,13 +89,14 @@ namespace SelfQuest
 
         public void NextQuestLine()
         {
+            if (pool.Count <= 0) return;
             currentQuestLine = (currentQuestLine + 1) % pool.Count;
             ScrollManager.INSTANCE.PopulateQuests();
         }
 
         public void PrevQuestLine()
         {
-
+            if (pool.Count <= 0) return;
             currentQuestLine = currentQuestLine == 0 ? pool.Count - 1 : currentQuestLine-1;
             ScrollManager.INSTANCE.PopulateQuests();
         }

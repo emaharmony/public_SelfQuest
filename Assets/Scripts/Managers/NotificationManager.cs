@@ -12,8 +12,16 @@ using UnityEngine;
 
 public class NotificationManager : MonoBehaviour
 {
+    public static NotificationManager INSTANCE { get; private set; }
     public int hours = 3, mins = 0, seconds = 0;
-    public TMPro.TMP_Text text; 
+    public TMPro.TMP_Text text;
+
+
+    private void Awake()
+    {
+        INSTANCE = this;   
+    }
+
     // Start is called before the first frame update
     void Start()
     {

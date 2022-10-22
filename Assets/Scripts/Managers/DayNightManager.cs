@@ -76,12 +76,12 @@ public class DayNightManager : MonoBehaviour
                 RenderSettings.skybox = sunriseBox;
                 extraSun.color = RenderSettings.skybox.color = skyboxColors[0];
             }
-            else if (Mathf.CeilToInt(TimeOfDay) == 18) 
+            else if (Mathf.CeilToInt(TimeOfDay) >= 18 && Mathf.CeilToInt(TimeOfDay) < 20) 
             {
                 RenderSettings.skybox = sunsetBox;
                 extraSun.color = RenderSettings.skybox.color = skyboxColors[1];
             }
-            else if (Mathf.CeilToInt(TimeOfDay) >= 19 || Mathf.CeilToInt(TimeOfDay) < 5)
+            else if (Mathf.CeilToInt(TimeOfDay) >= 20|| Mathf.CeilToInt(TimeOfDay) < 5)
             {
                 RenderSettings.skybox = nightSkyBox;
                 moon.color = RenderSettings.skybox.color = skyboxColors[2];
@@ -91,6 +91,27 @@ public class DayNightManager : MonoBehaviour
                 RenderSettings.skybox = daySkyBox;
                 extraSun.color = RenderSettings.skybox.color = skyboxColors[3];
 
+            }
+            #endregion
+            #region BGM
+            if (!SoundManager.INSTANCE.musicON)
+            {
+                if (Mathf.CeilToInt(TimeOfDay) < 5)
+                {
+                    SoundManager.INSTANCE.LateNight();
+                }
+                else if (Mathf.CeilToInt(TimeOfDay) < 15)
+                {
+                    SoundManager.INSTANCE.Morning();
+                }
+                else if (Mathf.CeilToInt(TimeOfDay) < 20)
+                {
+                    SoundManager.INSTANCE.Evening();
+                }
+                else
+                {
+                    SoundManager.INSTANCE.Night();
+                }
             }
             #endregion
         }
