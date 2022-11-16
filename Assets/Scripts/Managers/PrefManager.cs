@@ -11,6 +11,8 @@ namespace SelfQuest
         SkillManager skills;
         QuestManager quests;
 
+        [SerializeField]GameObject iphoneNew, iphoneOld;
+
         //Player Prefs
         const string NEW_PLAYER = "isNewPlayer", PREF_NAME = "playerName", PREF_LEVEL = "playerLvl", CURR_EXP_PREF = "current_exp", PREF_GOLD = "gold";
         
@@ -30,6 +32,23 @@ namespace SelfQuest
             player = PlayerManager.INSTANCE;
             skills = SkillManager.INSTANCE;
             quests = QuestManager.INSTANCE;
+#if UNITY_IOS
+            float phoneType = float.Parse(SystemInfo.deviceModel.Substring(6).Replace(',', '.'));
+            if(phoneType < 10)
+            {
+                Destroy(iphoneNew);
+                iphoneOld.SetActive(true);
+            } else 
+            {
+                Destroy(iphoneOld);
+                iphoneNew.SetActive(true);
+            }
+#else
+            Destroy(iphoneOld);
+            iphoneNew.SetActive(true);
+#endif
+
+
 
         }
 
@@ -43,7 +62,7 @@ namespace SelfQuest
             while(!LoadSkillPrefs()) yield return null;
             while(!LoadUserPrefs()) yield return null;
             while(!LoadQuestPrefs()) yield return null;
-            NotificationManager.INSTANCE.hours = PlayerPrefs.GetInt(SETTINGS_NOTIFICATION);
+           // NotificationManager.INSTANCE.hours = PlayerPrefs.GetInt(SETTINGS_NOTIFICATION);
 
         }
 
@@ -141,7 +160,7 @@ namespace SelfQuest
             while (!SaveUserPrefs()) yield return new WaitForEndOfFrame();
             while (!SaveSkillPrefs()) yield return new WaitForEndOfFrame();
             while(!SaveQuestPrefs()) yield return new WaitForEndOfFrame();
-            PlayerPrefs.SetInt(SETTINGS_NOTIFICATION, NotificationManager.INSTANCE.hours);
+      //      PlayerPrefs.SetInt(SETTINGS_NOTIFICATION, NotificationManager.INSTANCE.hours);
         }
 
         public bool SaveSkillPrefs()
