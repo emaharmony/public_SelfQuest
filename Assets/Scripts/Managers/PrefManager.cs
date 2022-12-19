@@ -10,7 +10,9 @@ namespace SelfQuest
         PlayerManager player;
         SkillManager skills;
         QuestManager quests;
+        public ScrollManager activeUI { private set; get; }
 
+        [SerializeField] TMPro.TMP_Text debugline;
         [SerializeField]GameObject iphoneNew, iphoneOld;
 
         //Player Prefs
@@ -32,29 +34,32 @@ namespace SelfQuest
             player = PlayerManager.INSTANCE;
             skills = SkillManager.INSTANCE;
             quests = QuestManager.INSTANCE;
-#if UNITY_IOS
-            float phoneType = float.Parse(SystemInfo.deviceModel.Substring(6).Replace(',', '.'));
-            if(phoneType < 10)
-            {
-                Destroy(iphoneNew);
-                iphoneOld.SetActive(true);
-            } else 
-            {
-                Destroy(iphoneOld);
-                iphoneNew.SetActive(true);
-            }
-#else
-            Destroy(iphoneOld);
-            iphoneNew.SetActive(true);
-#endif
-
-
-
         }
 
         void Start() 
         {
            StartCoroutine( LoadAllPrefs());
+
+#if UNITY_IOS
+            debugline.text = SystemInfo.deviceModel.Substring(6).Replace(',', '.');
+            float phoneType = float.Parse(SystemInfo.deviceModel.Substring(6).Replace(',', '.'));
+
+            if (phoneType < 10.6f)
+            {
+                Destroy(iphoneNew);
+                iphoneOld.SetActive(true);
+                activeUI = iphoneOld.GetComponent<ScrollManager>();
+            }
+            else
+            {
+                Destroy(iphoneOld);
+                iphoneNew.SetActive(true);
+                activeUI = iphoneNew.GetComponent<ScrollManager>();
+            }
+#else
+            Destroy(iphoneOld);
+            iphoneNew.SetActive(true);
+#endif
         }
 
         public IEnumerator LoadAllPrefs()
