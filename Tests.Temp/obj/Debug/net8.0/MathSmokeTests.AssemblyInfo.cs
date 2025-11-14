@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MathSmokeTests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+19fea9301a559cabfb6970a150c6d770de40b6e4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1a54aba0d849f49356c2a80ed0eeda2a0b9c1f9e")]
 [assembly: System.Reflection.AssemblyProductAttribute("MathSmokeTests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MathSmokeTests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
