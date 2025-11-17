@@ -8,7 +8,7 @@ namespace SelfQuest
     /// <summary>
     /// Controls everything that is player related: Level, exp, and gold, skill levels anything iun character screen  
     /// </summary>
-    public class PlayerManager : MonoBehaviour
+    public class PlayerManager : LevelingSystem
     {
         // Total accumulated experience for the player (capped by MAX_XP)
         public static PlayerManager INSTANCE { get; private set; }
